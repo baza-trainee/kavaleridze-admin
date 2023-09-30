@@ -1,7 +1,6 @@
 import React from "react";
 import { Controller, Control } from "react-hook-form";
-import { Box, TextField, Button, InputLabel } from "@mui/material";
-// import { Control, FieldValues } from "react-hook-form";
+import { Box, TextField, Button, InputLabel, useTheme } from "@mui/material";
 
 interface ContactFieldProps {
   label: string;
@@ -10,6 +9,9 @@ interface ContactFieldProps {
   onChange: (value: string) => void;
   onSave: () => void;
   isChanged: boolean;
+  isMulti?: boolean;
+  rows?: number;
+  icon?: string;
 }
 
 const ContactField: React.FC<ContactFieldProps> = ({
@@ -19,13 +21,17 @@ const ContactField: React.FC<ContactFieldProps> = ({
   onChange,
   onSave,
   isChanged,
+  isMulti,
+  rows,
+  icon,
 }) => {
+  const theme = useTheme();
   return (
     <Box>
       <InputLabel
         sx={{
           marginBottom: "8px",
-          color: "inherit",
+          color: theme.palette.text.primary,
           fontSize: { xs: "16px", lg: "18px" },
           fontWeight: "600",
         }}
@@ -38,8 +44,22 @@ const ContactField: React.FC<ContactFieldProps> = ({
         render={({ field }) => (
           <Box sx={{ display: "flex", flexDirection: "column", gap: "24px" }}>
             <TextField
+              {...(icon && {
+                InputProps: {
+                  endAdornment: (
+                    <Box
+                      component="img"
+                      src={icon}
+                      alt="phone icon"
+                      sx={{ width: "22px", height: "22px" }}
+                    />
+                  ),
+                },
+              })}
               {...field}
+              multiline={isMulti}
               variant="outlined"
+              rows={rows}
               onChange={(e) => onChange(e.target.value)}
             />
             <Button

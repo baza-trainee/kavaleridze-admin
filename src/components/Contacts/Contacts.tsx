@@ -3,6 +3,8 @@ import { FieldValues, useForm } from "react-hook-form";
 import PageTemplate from "../Common/PageTemplate";
 import ContactField from "./ContactField";
 import { Box } from "@mui/material";
+import phoneIcon from "../../assets/phone.svg";
+import emailIcon from "../../assets/email.svg";
 
 type FieldName = "phoneNumber" | "email" | "metro" | "funicular" | "bus";
 
@@ -76,6 +78,7 @@ const Contacts: React.FC = () => {
             onChange={(value) => handleInputChange("phoneNumber", value)}
             onSave={() => handleSave("phoneNumber", getValues("phoneNumber"))}
             isChanged={fieldChanges.phoneNumber}
+            icon={phoneIcon}
           />
           <ContactField
             label="Електронна адреса"
@@ -84,10 +87,13 @@ const Contacts: React.FC = () => {
             onChange={(value) => handleInputChange("email", value)}
             onSave={() => handleSave("email", getValues("email"))}
             isChanged={fieldChanges.email}
+            icon={emailIcon}
           />
           <ContactField
             label="Метро"
             fieldName="metro"
+            isMulti={true}
+            rows={4}
             control={control}
             onChange={(value) => handleInputChange("metro", value)}
             onSave={() => handleSave("metro", getValues("metro"))}
@@ -96,6 +102,8 @@ const Contacts: React.FC = () => {
           <ContactField
             label="Фунікулер"
             fieldName="funicular"
+            isMulti={true}
+            rows={4}
             control={control}
             onChange={(value) => handleInputChange("funicular", value)}
             onSave={() => handleSave("funicular", getValues("funicular"))}
@@ -104,6 +112,8 @@ const Contacts: React.FC = () => {
           <ContactField
             label="Автобус"
             fieldName="bus"
+            isMulti={true}
+            rows={4}
             control={control}
             onChange={(value) => handleInputChange("bus", value)}
             onSave={() => handleSave("bus", getValues("bus"))}
