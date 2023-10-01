@@ -1,7 +1,7 @@
-import { inputAdornmentClasses } from '@mui/material/InputAdornment';
-import { inputBaseClasses } from '@mui/material/InputBase';
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
-import { Components, Theme } from '@mui/material/styles';
+import { inputAdornmentClasses } from '@mui/material/InputAdornment'
+import { inputBaseClasses } from '@mui/material/InputBase'
+import { outlinedInputClasses } from '@mui/material/OutlinedInput'
+import { Components, Theme } from '@mui/material/styles'
 
 export const MuiInputBase: Components<Theme>['MuiInputBase'] = {
   styleOverrides: {
@@ -21,7 +21,7 @@ export const MuiInputBase: Components<Theme>['MuiInputBase'] = {
       },
     }),
   },
-};
+}
 
 export const MuiTextField: Components<Theme>['MuiTextField'] = {
   styleOverrides: {
@@ -31,7 +31,7 @@ export const MuiTextField: Components<Theme>['MuiTextField'] = {
       '--TextField-brandBorderFocusedColor': theme.palette.primary.main,
     }),
   },
-};
+}
 
 export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
   styleOverrides: {
@@ -53,4 +53,4 @@ export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
       },
     }),
   },
-};
+}
