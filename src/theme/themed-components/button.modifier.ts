@@ -4,6 +4,7 @@ declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     primary: true;
     secondary: true;
+    tertiary: true;
   }
 }
 export const MuiButton: Components<Theme>['MuiButton'] = {
@@ -61,6 +62,40 @@ export const MuiButton: Components<Theme>['MuiButton'] = {
         '&:disabled': {
           backgroundColor: theme.palette.gray.light,
           color: theme.palette.gray.dark,
+        },
+      }),
+    },
+    {
+      props: { variant: 'tertiary' },
+      style: ({ theme }) => ({
+        padding: 0,
+        borderBottom: '1px solid',
+        borderColor: 'transparent',
+        fontFamily: 'Raleway',
+        lineHeight: 'normal',
+        fontWeight: 600,
+        backgroundColor: theme.palette.common.white,
+        color: theme.palette.common.black,
+
+        '& .MuiButton-endIcon': {
+          marginLeft: 4,
+        },
+
+        borderRadius: 0,
+        '&:hover': {
+          color: theme.palette.primary.dark,
+        },
+
+        '&:focus': {
+          borderBottom: '1px solid',
+          color: theme.palette.primary.dark,
+          borderColor: 'theme.palette.primary.dark',
+        },
+
+        '&:active': {},
+
+        '&:disabled': {
+          color: theme.palette.text.disabled,
         },
       }),
     },
