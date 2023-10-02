@@ -33,29 +33,22 @@ export const MuiTextField: Components<Theme>['MuiTextField'] = {
     }),
   },
 }
-};
 
 export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
   styleOverrides: {
     notchedOutline: ({ error, theme }) => ({
-      borderColor: error
-        ? theme.palette.error.main
-        : theme.palette.common.black,
+      borderColor: error ? theme.palette.error.main : theme.palette.common.black,
       borderRadius: 8,
     }),
     root: ({ theme, error }) => ({
       color: theme.palette.common.black,
       padding: '12px 16px',
       [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-        borderColor: error
-          ? theme.palette.error.main
-          : theme.palette.primary.main,
+        borderColor: error ? theme.palette.error.main : theme.palette.primary.main,
       },
       [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
         border: '1px solid',
-        borderColor: error
-          ? theme.palette.error.main
-          : theme.palette.primary.main,
+        borderColor: error ? theme.palette.error.main : theme.palette.primary.main,
       },
     }),
   },
