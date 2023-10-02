@@ -1,8 +1,7 @@
 import Section from '@/components/Common/Section'
-import { Button, Container, FormControl, Stack, Typography } from '@mui/material'
+import { Button, Container, FormControl, Stack, TextField, Typography } from '@mui/material'
 import { FC, FormEventHandler, MouseEventHandler, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import AdminTextField from '../../Common/AdminTextField'
 import { ContentBox, Description, FormBox } from '../styles'
 
 const ResetPassword: FC = () => {
@@ -35,12 +34,13 @@ const ResetPassword: FC = () => {
                 <Typography variant="body1" fontWeight={600} marginBottom={1}>
                   Електронна адреса
                 </Typography>
-                <AdminTextField
+                <TextField
                   placeholder="olenapetrova@gmail.com"
                   type="mail"
                   autoComplete="off"
                   value={value}
                   onChange={e => setValue(e.target.value)}
+                  sx={{ '.MuiOutlinedInput-root': { height: '52px' } }}
                 />
               </FormControl>
             </FormBox>
