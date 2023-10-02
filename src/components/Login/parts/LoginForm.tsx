@@ -1,4 +1,4 @@
-import { Button, FormControl, InputAdornment, Stack, Typography } from '@mui/material'
+import { Button, FormControl, InputAdornment, Stack, TextField, Typography } from '@mui/material'
 import {
   ChangeEvent,
   Dispatch,
@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import AdminTextField from '../../Common/AdminTextField'
+
 import { AuthData } from '../Login'
 import { ButtonBox, Description, ErrorBox, FormBox, ResetPasswordTitle } from '../styles'
 import PassIcon from './PassIcon'
@@ -48,14 +48,14 @@ const LoginForm: FC<LoginFormProps> = ({
             <Typography variant="body1" fontWeight={600} marginBottom={1}>
               Логін
             </Typography>
-            <AdminTextField
-              autoComplete="off"
+            <TextField
               placeholder="olenapetrova@gmail.com"
-              fullWidth
+              autoComplete="off"
               error={loginError}
               value={authData.login}
               onChange={handleChange('login')}
               onClick={() => setLoginError(false)}
+              sx={{ '.MuiOutlinedInput-root': { height: '52px' } }}
             />
           </FormControl>
 
@@ -63,7 +63,7 @@ const LoginForm: FC<LoginFormProps> = ({
             <Typography variant="body1" fontWeight={600} marginBottom={1}>
               Пароль
             </Typography>
-            <AdminTextField
+            <TextField
               type={`${showPass ? 'text' : 'password'}`}
               autoComplete="off"
               placeholder="Введіть Ваш пароль"
@@ -79,6 +79,7 @@ const LoginForm: FC<LoginFormProps> = ({
               value={authData.password}
               onChange={handleChange('password')}
               onClick={() => setLoginError(false)}
+              sx={{ '.MuiOutlinedInput-root': { height: '52px' } }}
             />
           </FormControl>
 
