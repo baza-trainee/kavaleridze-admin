@@ -9,6 +9,7 @@ export const MuiInputBase: Components<Theme>['MuiInputBase'] = {
       [`& .${inputBaseClasses.input}`]: {
         outline: 'none',
         padding: 0,
+        lineHeight: 1.5,
 
         '&:placeholder': {
           opacity: 1,
@@ -32,24 +33,29 @@ export const MuiTextField: Components<Theme>['MuiTextField'] = {
     }),
   },
 }
+};
 
 export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
   styleOverrides: {
-    notchedOutline: {
-      borderColor: 'var(--TextField-brandBorderColor)',
-      borderRadius: 24,
-    },
-    root: ({ theme }) => ({
+    notchedOutline: ({ error, theme }) => ({
+      borderColor: error
+        ? theme.palette.error.main
+        : theme.palette.common.black,
+      borderRadius: 8,
+    }),
+    root: ({ theme, error }) => ({
       color: theme.palette.common.black,
-
-      maxHeight: 200,
-      padding: 16,
+      padding: '12px 16px',
       [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-        borderColor: 'var(--TextField-brandBorderHoverColor)',
+        borderColor: error
+          ? theme.palette.error.main
+          : theme.palette.primary.main,
       },
       [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
         border: '1px solid',
-        borderColor: 'var(--TextField-brandBorderFocusedColor)',
+        borderColor: error
+          ? theme.palette.error.main
+          : theme.palette.primary.main,
       },
     }),
   },
