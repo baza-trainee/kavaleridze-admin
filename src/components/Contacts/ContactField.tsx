@@ -1,6 +1,14 @@
 import React from "react";
 import { Controller, Control } from "react-hook-form";
-import { Box, TextField, Button, InputLabel, useTheme } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  InputLabel,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import SvgSpriteIcon from "../Common/SvgSprite";
 
 interface ContactFieldProps {
   label: string;
@@ -11,7 +19,7 @@ interface ContactFieldProps {
   isChanged: boolean;
   isMulti?: boolean;
   rows?: number;
-  icon?: string;
+  iconId?: string;
 }
 
 const ContactField: React.FC<ContactFieldProps> = ({
@@ -23,36 +31,44 @@ const ContactField: React.FC<ContactFieldProps> = ({
   isChanged,
   isMulti,
   rows,
-  icon,
+  iconId,
 }) => {
   const theme = useTheme();
   return (
     <Box>
-      <InputLabel
+      <Typography
+        component={InputLabel}
+        variant="body1"
         sx={{
           marginBottom: "8px",
           color: theme.palette.text.primary,
-          fontSize: { xs: "16px", lg: "18px" },
           fontWeight: "600",
         }}
       >
         {label}
-      </InputLabel>
+      </Typography>
+
       <Controller
         name={fieldName}
         control={control}
         render={({ field }) => (
-          <Box sx={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { md: "375px 154px", lg: "460px 350px" },
+              gap: "24px",
+            }}
+          >
             <TextField
-              {...(icon && {
+              sx={{
+                input: {
+                  fontSize: { xs: "14px", md: "16px" },
+                },
+              }}
+              {...(iconId && {
                 InputProps: {
                   endAdornment: (
-                    <Box
-                      component="img"
-                      src={icon}
-                      alt="phone icon"
-                      sx={{ width: "22px", height: "22px" }}
-                    />
+                    <SvgSpriteIcon fontSize="small" iconId={iconId} />
                   ),
                 },
               })}
@@ -63,8 +79,15 @@ const ContactField: React.FC<ContactFieldProps> = ({
               onChange={(e) => onChange(e.target.value)}
             />
             <Button
+              type="submit"
               variant="secondary"
-              color="primary"
+              sx={{
+                // fontSize: "40px",
+                backgroundColor: theme.palette.primary.main,
+                "&:hover": {
+                  backgroundColor: theme.palette.primary.dark,
+                },
+              }}
               onClick={onSave}
               disabled={!isChanged}
             >

@@ -3,8 +3,6 @@ import { FieldValues, useForm } from "react-hook-form";
 import PageTemplate from "../Common/PageTemplate";
 import ContactField from "./ContactField";
 import { Box } from "@mui/material";
-import phoneIcon from "../../assets/phone.svg";
-import emailIcon from "../../assets/email.svg";
 
 type FieldName = "phoneNumber" | "email" | "metro" | "funicular" | "bus";
 
@@ -78,7 +76,7 @@ const Contacts: React.FC = () => {
             onChange={(value) => handleInputChange("phoneNumber", value)}
             onSave={() => handleSave("phoneNumber", getValues("phoneNumber"))}
             isChanged={fieldChanges.phoneNumber}
-            icon={phoneIcon}
+            iconId="phone"
           />
           <ContactField
             label="Електронна адреса"
@@ -87,7 +85,7 @@ const Contacts: React.FC = () => {
             onChange={(value) => handleInputChange("email", value)}
             onSave={() => handleSave("email", getValues("email"))}
             isChanged={fieldChanges.email}
-            icon={emailIcon}
+            iconId="email"
           />
           <ContactField
             label="Метро"
