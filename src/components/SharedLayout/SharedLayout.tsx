@@ -2,8 +2,9 @@
 import { Stack } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 // import useAuth from '@/hooks/useAuth';
-import NavBar from '../NavBar/NavBar';
+// import NavBar from '../NavBar/NavBar';
 import NavBarMobile from '../NavBar/NavbarMobile/NavBarMobile';
+import NavBar from '../NavBar/NavbarDekstop/NavBar';
 
 const SharedLayout = () => {
   //ToDo: when Login form will be done, uncomment code below (8-14 line)
@@ -18,7 +19,8 @@ const SharedLayout = () => {
   //ToDo: add components for left bar below:
   return (
     <Stack direction="row">
-      <NavBarMobile />
+      {/* <NavBarMobile /> */}
+      <NavBar />
       <Outlet />
     </Stack>
   );

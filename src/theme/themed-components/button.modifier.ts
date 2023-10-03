@@ -5,6 +5,7 @@ declare module '@mui/material/Button' {
     primary: true;
     secondary: true;
     tertiary: true;
+    link:true;
   }
 }
 export const MuiButton: Components<Theme>['MuiButton'] = {
@@ -93,6 +94,31 @@ export const MuiButton: Components<Theme>['MuiButton'] = {
         },
 
         '&:active': {},
+
+        '&:disabled': {
+          color: theme.palette.text.disabled,
+        },
+      }),
+    }, {
+      props: { variant: 'link' },
+      style: ({ theme }) => ({
+
+        color: theme.palette.common.white,
+        justifyContent: 'flex-start',
+
+        '& .MuiButton-startIcon': {
+          marginLeft: 4,
+        },
+        padding: '16px',
+        gap: ' 16px',
+        display: 'flex',
+        width: '100%',
+        transition: theme.transitions.create('color'),
+        '&:hover': { color: theme.palette.primary.dark},
+        borderRadius: 0,
+
+
+
 
         '&:disabled': {
           color: theme.palette.text.disabled,

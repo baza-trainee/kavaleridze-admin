@@ -1,22 +1,21 @@
 import { List } from '@mui/material';
+import { FC } from 'react';
 import NavMenuItem from './NavMenuItem';
-
-const Navigation = () => {
-  const navigation = [
-    { href: '/', title: 'Додати подію' },
-    { href: '/events/:slug', title: 'Редагувати події' },
-    { href: '/contacts', title: 'Контакти' },
-    { href: '/settings', title: 'Налаштування ' },
-  ];
-  return (
-    <nav>
-      <List sx={{p:0}}>
-        {navigation.map(({ title, href }) => (
-          <NavMenuItem href={href} title={title} />
-        ))}
-      </List>
-    </nav>
-  );
+type NavigationProps = {
+  navigation: { title: string; href: string; icon: string }[];
 };
 
+const Navigation: FC<NavigationProps> = ({ navigation }) => {
+  return (
+    <>
+      <nav>
+        <List sx={{ w: '250px', p: 0 }}>
+          {navigation.map(({ title, href, icon }) => (
+            <NavMenuItem href={href} title={title} icon={icon} />
+          ))}
+        </List>
+      </nav>
+    </>
+  );
+};
 export default Navigation;
