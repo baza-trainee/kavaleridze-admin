@@ -27,15 +27,7 @@ export const MuiInputBase: Components<Theme>["MuiInputBase"] = {
   },
 }
 
-export const MuiTextField: Components<Theme>['MuiTextField'] = {
-  styleOverrides: {
-    root: ({ theme }) => ({
-      '--TextField-brandBorderColor': theme.palette.common.black,
-      '--TextField-brandBorderHoverColor': theme.palette.primary.main,
-      '--TextField-brandBorderFocusedColor': theme.palette.primary.main,
-    }),
-  },
-}
+
 
 
 export const MuiTextField: Components<Theme>['MuiTextField'] = {

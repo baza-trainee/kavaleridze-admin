@@ -12,16 +12,8 @@ export const Wrapper = styled(Box)(({ theme }) => ({
   left: 0,
   display: 'flex',
   flexDirection: 'column',
+  zIndex: 1,
 
-  // [theme.breakpoints.up('md')]: {
-  //   fontSize: 18,
-  //   order: 'initial',
-  //   lineHeight: 1.555, //28px,
-  //   alignSelf: 'end',
-  // },
-  // [theme.breakpoints.up('lg')]: {
-  //   fontSize: 18,
-  // },
 }));
 export const MobileHeader = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.common.black,

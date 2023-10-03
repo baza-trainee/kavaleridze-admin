@@ -5,6 +5,7 @@ import ButtonWithIconNav from '../parts/ButtonWithIcon';
 import Navigation from '../parts/Navigation';
 import { MobileHeader, Wrapper } from './style';
 import useAuth from '@/hooks/useAuth';
+import { navigation } from '../parts/data';
 const NavBarMobile: FC = () => {
   const { signOut } = useAuth();
   const [open, setOpen] = useState(false);
@@ -22,7 +23,7 @@ const NavBarMobile: FC = () => {
               setOpen(false);
             }}
           />
-          <Navigation />
+          <Navigation navigation={navigation} />
           <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <ButtonWithIconNav
               sx={{

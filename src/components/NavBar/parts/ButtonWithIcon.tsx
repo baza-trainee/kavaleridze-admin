@@ -12,7 +12,7 @@ interface ButtonWithIconNavProps extends ButtonProps {
 
 const ButtonWithIconNav: FC<ButtonWithIconNavProps> = ({ title, svgSpriteId, ...props }) => {
   return (
-    <Button variant="link" component={Link} startIcon={<SvgSpriteIcon svgSpriteId={svgSpriteId} />} {...props}>
+    <Button variant="link" sx={{margin:0}}   component={Link} startIcon={<SvgSpriteIcon sx={{margin:0}} svgSpriteId={svgSpriteId} />} {...props}>
       {title}
     </Button>
   );
