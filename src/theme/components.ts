@@ -7,8 +7,10 @@ import { MuiSelect } from './themed-components/select.modifier';
 import {
   MuiInputBase,
   MuiOutlinedInput,
+  MuiTextField,
 } from './themed-components/textFiled.modifier';
 import { MuiSvgIcon } from './themed-components/svgIcon.modifier';
+import { MuiInputLabel } from './themed-components/inputLabel.modifier';
 
 export const components: Components<Theme> = {
   MuiTypography,
@@ -18,4 +20,6 @@ export const components: Components<Theme> = {
   MuiInputBase,
   MuiOutlinedInput,
   MuiSvgIcon,
+  MuiTextField,
+  MuiInputLabel,
 };

@@ -1,5 +1,4 @@
 import { Components, Theme } from '@mui/material/styles';
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 
 export const MuiSelect: Components<Theme>['MuiSelect'] = {
   defaultProps: {
@@ -9,7 +8,9 @@ export const MuiSelect: Components<Theme>['MuiSelect'] = {
         sx: {
           marginTop: 1,
           border: '1px solid',
-          borderColor: (theme) => theme.palette.common.black,
+          borderColor: (theme) => theme.palette.primary.main,
+          boxShadow:
+            '0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 4px 4px 0px rgba(0, 0, 0, 0.03), 0px 10px 6px 0px rgba(0, 0, 0, 0.02), 0px 17px 7px 0px rgba(0, 0, 0, 0.01), 0px 27px 7px 0px rgba(0, 0, 0, 0.00)',
         },
       },
       MenuListProps: {
@@ -35,11 +36,21 @@ export const MuiSelect: Components<Theme>['MuiSelect'] = {
   styleOverrides: {
     select: {
       borderRadius: '8px',
-      [`&.${outlinedInputClasses.notchedOutline}`]: {
-        '&.Mui-focused fieldset': {
-          borderColor: 'red',
-        },
-      },
     },
+    root: ({ theme }) => ({
+      padding: 0,
+      '& .MuiSelect-select[aria-expanded=true] ~ .MuiOutlinedInput-notchedOutline':
+        {
+          borderColor: theme.palette.primary.main,
+        },
+    }),
+    outlined: {
+      padding: '12px 16px',
+    },
+
+    icon: ({ theme }) => ({
+      color: theme.palette.common.black,
+      right: 16,
+    }),
   },
 };
