@@ -1,19 +1,19 @@
-import { PaletteOptions } from '@mui/material';
+import { PaletteOptions } from '@mui/material'
 
 declare module '@mui/material/styles' {
   interface Palette {
     gray: {
-      main: string;
-      dark: string;
-      light: string;
-    };
+      main: string
+      dark: string
+      light: string
+    }
   }
   interface PaletteOptions {
     gray: {
-      main: string;
-      dark: string;
-      light: string;
-    };
+      main: string
+      dark: string
+      light: string
+    }
   }
 }
 
@@ -44,11 +44,11 @@ export const palette: PaletteOptions = {
     paper: '#F9F8F4',
   },
   divider: '#878684',
-  error: { main: '#DA1414' },
+  error: { main: '#DA1414', light: '#FFF9F9' },
   action: { disabledBackground: '#D0D0D0' },
   gray: {
     main: '#D0D0D0',
     dark: '#878684',
     light: '#EEEEEE',
   },
-};
+}
