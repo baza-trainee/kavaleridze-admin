@@ -1,23 +1,25 @@
 import PassIcon from '@/components/Login/parts/PassIcon'
 import { Box, InputAdornment, TextField, Typography } from '@mui/material'
-import { ChangeEvent, FC, MouseEventHandler, useState } from 'react'
+import { ChangeEvent, Dispatch, FC, MouseEvent, MouseEventHandler, useState } from 'react'
 
 interface InputWithLabelProps {
   label: string
   type: string
   placeholder?: string
-  name: string
   value: string
-  onChange: (key: string) => (event: ChangeEvent<HTMLInputElement>) => void
+  error?: boolean
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onClick: () => void
 }
 
 const InputWithLabel: FC<InputWithLabelProps> = ({
   label,
-  onChange,
-  name,
   placeholder,
   type,
   value,
+  error,
+  onClick,
+  onChange,
 }) => {
   const [showPass, setShowPass] = useState(false)
   const isPassType = type === 'password'
@@ -48,7 +50,9 @@ const InputWithLabel: FC<InputWithLabelProps> = ({
               ),
             }}
             value={value}
-            onChange={onChange(name)}
+            onChange={onChange}
+            error={error}
+            onClick={onClick}
           />
         </>
       ) : (
@@ -62,7 +66,8 @@ const InputWithLabel: FC<InputWithLabelProps> = ({
             placeholder={placeholder}
             sx={{ '.MuiInputBase-root': { height: '52px' } }}
             value={value}
-            onChange={onChange(name)}
+            onChange={onChange}
+            error={error}
           />
         </>
       )}
