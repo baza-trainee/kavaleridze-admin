@@ -1,11 +1,9 @@
+import { inputAdornmentClasses } from '@mui/material/InputAdornment';
+import { inputBaseClasses } from '@mui/material/InputBase';
+import { outlinedInputClasses } from '@mui/material/OutlinedInput';
+import { Components, Theme } from '@mui/material/styles';
 
-import { inputAdornmentClasses } from "@mui/material/InputAdornment";
-import { inputBaseClasses } from "@mui/material/InputBase";
-import { outlinedInputClasses } from "@mui/material/OutlinedInput";
-import { Components, Theme } from "@mui/material/styles";
-
-
-export const MuiInputBase: Components<Theme>["MuiInputBase"] = {
+export const MuiInputBase: Components<Theme>['MuiInputBase'] = {
   styleOverrides: {
     root: ({ theme }) => ({
       '&:placeholder': {
@@ -14,21 +12,17 @@ export const MuiInputBase: Components<Theme>["MuiInputBase"] = {
         fontWeight: 400,
       },
       [`& .${inputBaseClasses.input}`]: {
-        outline: "none",
+        outline: 'none',
         padding: 0,
         lineHeight: 1.5,
-
       },
 
       [`& .${inputAdornmentClasses.root}`]: {
-        color: "inherit",
+        color: 'inherit',
       },
     }),
   },
-}
-
-
-
+};
 
 export const MuiTextField: Components<Theme>['MuiTextField'] = {
   styleOverrides: {
@@ -52,23 +46,18 @@ export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
     }),
     root: ({ theme, error }) => ({
       color: theme.palette.common.black,
-      padding: "12px 16px",
+      padding: '12px 16px',
       [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-
         borderColor: error
           ? 'var(--TextFiled-brandErrorBorderColor)'
           : 'var(--TextField-brandBorderHoverColor)',
-
       },
       [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-
-        border: "1px solid",
+        border: '1px solid',
         borderColor: error
-
           ? 'var(--TextFiled-brandErrorBorderColor)'
           : 'var(--TextField-brandBorderFocusedColor)',
-
       },
     }),
   },
-}
+};
