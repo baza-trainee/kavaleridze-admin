@@ -11,7 +11,7 @@ const Navigation: FC<NavigationProps> = ({ navigation }) => {
       <nav>
         <List sx={{ w: '250px', p: 0 }}>
           {navigation.map(({ title, href, icon }) => (
-            <NavMenuItem href={href} title={title} icon={icon} />
+            <NavMenuItem key={href} href={href} title={title} icon={icon} />
           ))}
         </List>
       </nav>

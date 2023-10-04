@@ -1,5 +1,5 @@
-import { styled, Box } from '@mui/material';
-import ButtonWithIconNav from '../parts/ButtonWithIcon';
+import ButtonWithIcon from '@/components/ButtonWithIcon/ButtonWithIcon';
+import { Box, styled } from '@mui/material';
 
 export const Wrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.common.black,
@@ -9,7 +9,7 @@ export const Wrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
 }));
-export const CloseButton = styled(ButtonWithIconNav)({
+export const CloseButton = styled(ButtonWithIcon)({
   background: 'white',
   width: 'max-content',
   color: 'black',
@@ -22,8 +22,7 @@ export const ExitWrapper = styled(Box)({
   justifyContent: 'start',
   alignItems: 'end',
 });
-export const ExitButton = styled(ButtonWithIconNav)(({ theme }) => ({
-
+export const ExitButton = styled(ButtonWithIcon)(({ theme }) => ({
   borderRadius: '8px',
   border: `1px solid ${theme.palette.common.white}`,
   color: theme.palette.common.white,

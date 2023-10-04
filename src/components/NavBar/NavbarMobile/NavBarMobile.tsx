@@ -1,11 +1,11 @@
 import ButtonWithIcon from '@/components/ButtonWithIcon/ButtonWithIcon';
+import useAuth from '@/hooks/useAuth';
 import { Box } from '@mui/material';
 import { FC, useState } from 'react';
-import ButtonWithIconNav from '../parts/ButtonWithIcon';
 import Navigation from '../parts/Navigation';
-import { MobileHeader, Wrapper } from './style';
-import useAuth from '@/hooks/useAuth';
 import { navigation } from '../parts/data';
+import { MobileHeader, Wrapper } from './style';
+import { Link } from 'react-router-dom';
 const NavBarMobile: FC = () => {
   const { signOut } = useAuth();
   const [open, setOpen] = useState(false);
@@ -25,7 +25,7 @@ const NavBarMobile: FC = () => {
           />
           <Navigation navigation={navigation} />
           <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <ButtonWithIconNav
+            <ButtonWithIcon
               sx={{
                 borderRadius: '8px',
                 border: (theme) => `1px solid ${theme.palette.common.white}`,
@@ -39,13 +39,22 @@ const NavBarMobile: FC = () => {
               svgSpriteId="log-out"
               title="Вийти"
               variant="text"
+              iconPlace='startIcon'
+              component={Link}
               onClick={() => signOut()}
             />
           </Box>
         </Wrapper>
       ) : (
         <MobileHeader>
-          <ButtonWithIcon sx={{ color: 'white', p: 0 }} svgSpriteId="burger-menu" title="" variant="text" onClick={() => setOpen(true)} />
+          <ButtonWithIcon
+            sx={{ color: 'white', p: 0 }}
+            svgSpriteId="burger-menu"
+            title=""
+            variant="text"
+            iconPlace="startIcon"
+            onClick={() => setOpen(true)}
+          />
         </MobileHeader>
       )}
     </>

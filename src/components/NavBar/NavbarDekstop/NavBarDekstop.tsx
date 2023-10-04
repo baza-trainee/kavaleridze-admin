@@ -6,15 +6,16 @@ import logoShort from '@/assets/images/smallLogo.svg';
 import { CloseButton, ExitButton, ExitWrapper, Wrapper } from './style';
 import Navigation from '../parts/Navigation';
 import { navigation } from '../parts/data';
+import { Link } from 'react-router-dom';
 
-const NavBar: FC = () => {
+const NavBarDekstop: FC = () => {
   const { signOut } = useAuth();
   const [isShort, setIsShort] = useState(false);
 
   let rotate = '';
   let navItems = [...navigation];
   let insertLogo = logo;
-  
+
   if (isShort) {
     rotate = 'rotate(180deg)';
     navItems = navigation.map((item) => ({ ...item, title: '' }));
@@ -31,13 +32,16 @@ const NavBar: FC = () => {
         }}
         svgSpriteId={'close-nav'}
         title=""
+        variant="link"
+        iconPlace="startIcon"
+        component={Link}
         onClick={() => setIsShort((prev) => !prev)}
       />
       <ExitWrapper>
-        <ExitButton svgSpriteId="log-out" title={isShort ? '' : 'Вийти'} variant="text" onClick={() => signOut()} />
+        <ExitButton svgSpriteId="log-out" title={isShort ? '' : 'Вийти'} variant="text"  iconPlace="startIcon" onClick={() => signOut()} />
       </ExitWrapper>
     </Wrapper>
   );
 };
 
-export default NavBar;
+export default NavBarDekstop;
