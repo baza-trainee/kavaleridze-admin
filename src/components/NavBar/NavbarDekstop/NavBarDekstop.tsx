@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Box } from '@mui/material';
 import useAuth from '@/hooks/useAuth';
-import logo from '@/assets/images/logo.svg';
+import logo from '@/assets/images/fullLogo.svg';
 import logoShort from '@/assets/images/smallLogo.svg';
 import { CloseButton, ExitButton, ExitWrapper, Wrapper } from './style';
 import Navigation from '../parts/Navigation';
