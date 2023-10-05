@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Box, Button } from '@mui/material';
 import useAuth from '@/hooks/useAuth';
-import logo from '@/assets/images/Logo.svg';
+import logo from '@/assets/images/logo.svg';
 
 const NavBar: FC = () => {
   const { signOut } = useAuth();
