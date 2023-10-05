@@ -1,10 +1,11 @@
-import ButtonWithIcon from '@/components/ButtonWithIcon/ButtonWithIcon';
+import ButtonWithIcon from '@/components/Common/ButtonWithIcon';
 import useAuth from '@/hooks/useAuth';
 import { Box } from '@mui/material';
 import { FC, useState } from 'react';
 import Navigation from '../parts/Navigation';
 import { navigation } from '../parts/data';
 import { MobileHeader, Wrapper } from './style';
+
 import { Link } from 'react-router-dom';
 const NavBarMobile: FC = () => {
   const { signOut } = useAuth();
@@ -15,7 +16,12 @@ const NavBarMobile: FC = () => {
       {open ? (
         <Wrapper>
           <ButtonWithIcon
-            sx={{ color: 'white', p: 0, mb: '24px', justifyContent: 'flex-end' }}
+            sx={{
+              color: 'white',
+              p: 0,
+              mb: '24px',
+              justifyContent: 'flex-end',
+            }}
             svgSpriteId="close"
             title=""
             variant="text"
@@ -24,7 +30,14 @@ const NavBarMobile: FC = () => {
             }}
           />
           <Navigation navigation={navigation} />
-          <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Box
+            sx={{
+              flex: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             <ButtonWithIcon
               sx={{
                 borderRadius: '8px',
@@ -39,7 +52,7 @@ const NavBarMobile: FC = () => {
               svgSpriteId="log-out"
               title="Вийти"
               variant="text"
-              iconPlace='startIcon'
+              iconPlace="startIcon"
               component={Link}
               onClick={() => signOut()}
             />

@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import PageTemplate from '../Common/PageTemplate';
 import EventForm from '../EventForm/EventForm';
+import { getContactInfo } from '@/api';
 
 const AddEvent: FC = () => {
   const defaultValues = {
@@ -11,6 +12,15 @@ const AddEvent: FC = () => {
     description: '',
     image: '',
   };
+
+  useEffect(() => {
+    const asyncRequest = async () => {
+      const data = await getContactInfo();
+      console.log('data in useEffect', data);
+    };
+    asyncRequest();
+  }, []);
+
   return (
     <PageTemplate title="Додати подію">
       <EventForm defaultValues={defaultValues} />

@@ -1,7 +1,7 @@
 import useActiveLink from '@/hooks/useActiveLink';
 import { ListItem } from '@mui/material';
 import { FC } from 'react';
-import ButtonWithIcon from '@/components/ButtonWithIcon/ButtonWithIcon';
+import ButtonWithIcon from '@/components/Common/ButtonWithIcon';
 import { Link } from 'react-router-dom';
 
 interface NavMenuItemProp {
@@ -17,15 +17,22 @@ const NavMenuItem: FC<NavMenuItemProp> = ({ href, title, icon, click }) => {
     <ListItem disablePadding onClick={click}>
       <ButtonWithIcon
         sx={{
-          backgroundColor: (theme) => (isActiveLink ? theme.palette.primary.main : theme.palette.text.primary),
-          color: (theme) => (isActiveLink ? theme.palette.common.black : theme.palette.common.white),
+          backgroundColor: (theme) =>
+            isActiveLink
+              ? theme.palette.primary.main
+              : theme.palette.text.primary,
+          color: (theme) =>
+            isActiveLink
+              ? theme.palette.common.black
+              : theme.palette.common.white,
         }}
         title={title}
         svgSpriteId={icon}
-        variant='link'
-        iconPlace='startIcon'
+        variant="link"
+        iconPlace="startIcon"
         component={Link}
-        to={href}></ButtonWithIcon>
+        to={href}
+      ></ButtonWithIcon>
     </ListItem>
   );
 };

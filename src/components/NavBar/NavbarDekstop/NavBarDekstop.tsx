@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Box } from '@mui/material';
 import useAuth from '@/hooks/useAuth';
-import logo from '@/assets/images/Logo.svg';
+import logo from '@/assets/images/logo.svg';
 import logoShort from '@/assets/images/smallLogo.svg';
 import { CloseButton, ExitButton, ExitWrapper, Wrapper } from './style';
 import Navigation from '../parts/Navigation';
@@ -24,7 +24,13 @@ const NavBarDekstop: FC = () => {
 
   return (
     <Wrapper>
-      <Box component="img" sx={{ maxWidth: '240px', alignSelf: 'end' }} src={insertLogo} alt="logo" mb={2} />
+      <Box
+        component="img"
+        sx={{ maxWidth: '240px', alignSelf: 'end' }}
+        src={insertLogo}
+        alt="logo"
+        mb={2}
+      />
       <Navigation navigation={navItems} />
       <CloseButton
         sx={{
@@ -38,7 +44,13 @@ const NavBarDekstop: FC = () => {
         onClick={() => setIsShort((prev) => !prev)}
       />
       <ExitWrapper>
-        <ExitButton svgSpriteId="log-out" title={isShort ? '' : 'Вийти'} variant="text"  iconPlace="startIcon" onClick={() => signOut()} />
+        <ExitButton
+          svgSpriteId="log-out"
+          title={isShort ? '' : 'Вийти'}
+          variant="text"
+          iconPlace="startIcon"
+          onClick={() => signOut()}
+        />
       </ExitWrapper>
     </Wrapper>
   );

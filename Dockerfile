@@ -1,27 +1,14 @@
-FROM node:18-alpine as BUILD_IMAGE
+FROM node:18-alpine3.17 as build
 
-WORKDIR /app/admin
+WORKDIR /app
+COPY . /app
 
-COPY package.json .
+RUN npm install
+RUN npm run build
 
-RUN npm install 
-
-COPY . . 
-
-RUN npm run build 
-
-FROM node:18-alpine as PRODUCTION_IMAGE
-
-WORKDIR /app/admin
-
-COPY --from=BUILD_IMAGE /app/admin/dist/ /app/admin/dist/
-EXPOSE 8080
-
-COPY package.json .
-COPY vite.config.ts .
-
-RUN npm install typescript
-
+FROM ubuntu
+RUN apt-get update
+RUN apt-get install nginx -y
+COPY --from=build /app/dist /var/www/html/
 EXPOSE 5174
-
-CMD ["npm", "run", "preview" ]
+CMD ["nginx","-g","daemon off;"]
