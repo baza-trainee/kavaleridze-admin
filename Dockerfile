@@ -1,10 +1,12 @@
 FROM node:18-alpine3.17 as build
 
+ARG SERVER_URL
+
 WORKDIR /app
 COPY . /app
 
 RUN npm install
-RUN npm run build
+RUN VITE_SERVER_URL=${SERVER_URL} npm run build
 
 FROM ubuntu
 RUN apt-get update
