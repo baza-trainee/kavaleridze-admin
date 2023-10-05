@@ -1,4 +1,4 @@
-import ButtonWithIcon from '@/components/ButtonWithIcon/ButtonWithIcon';
+import ButtonWithIcon from '@/components/Common/ButtonWithIcon';
 import { Box, styled } from '@mui/material';
 
 export const Wrapper = styled(Box)(({ theme }) => ({

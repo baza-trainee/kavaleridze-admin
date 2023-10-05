@@ -1,6 +1,6 @@
 import { Button, ButtonProps } from '@mui/material';
 import { FC } from 'react';
-import SvgSprite from '../Common/SvgSprite';
+import SvgSprite from './SvgSprite';
 
 interface ButtonWithIconProps extends ButtonProps {
   title: string;
@@ -10,7 +10,12 @@ interface ButtonWithIconProps extends ButtonProps {
   to?: string;
 }
 
-const ButtonWithIcon: FC<ButtonWithIconProps> = ({ title, svgSpriteId, iconPlace = 'endIcon', ...props }) => {
+const ButtonWithIcon: FC<ButtonWithIconProps> = ({
+  title,
+  svgSpriteId,
+  iconPlace = 'endIcon',
+  ...props
+}) => {
   const iconPLace = { [iconPlace]: <SvgSprite iconId={svgSpriteId} /> };
   return (
     <Button variant="primary" {...iconPLace} {...props}>
