@@ -14,9 +14,9 @@ const SharedLayout = () => {
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-
+const direction =isDesktop?'row':'column';
   return (
-    <Stack direction="row">
+    <Stack direction={direction}>
       {isDesktop ? <NavBarDekstop /> : <NavBarMobile />}
       <Outlet />
     </Stack>
