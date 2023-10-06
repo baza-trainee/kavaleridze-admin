@@ -35,6 +35,7 @@ const TypeSelect: FC<SelectFormProps> = ({ control, label, required }) => {
           </InputLabel>
           <Select
             {...field}
+            variant="outlined"
             displayEmpty
             fullWidth
             required
