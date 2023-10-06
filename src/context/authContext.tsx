@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren, createContext, useState } from 'react';
-
+import { instance } from '@/api';
 import { IAdmin } from '@/types/context';
 
 //ToDo: add singIn and signOut fn type
@@ -11,25 +11,29 @@ interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType>(null!);
 
-const localStorageKey = 'admin';
+const localStorageKey = 'name';
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState<IAdmin | null>(() => {
     const admin = localStorage.getItem(localStorageKey);
-    return admin ? JSON.parse(admin) : null;
+    return admin
+      ? { username: 'root', password: 'password', role: ['admin'] }
+      : null;
   });
 
   const signIn = () => {
     //ToDo: change to request for sing in
-    const admin = { id: 'admin', name: 'admin' };
-    localStorage.setItem(localStorageKey, JSON.stringify(admin));
+    const admin = { username: 'root', password: 'password', role: ['admin'] };
+    localStorage.setItem(localStorageKey, admin.username);
     setUser(admin);
+    instance.defaults.auth = { username: 'root', password: 'password' };
   };
 
   const signOut = () => {
     //ToDo: add request for sign out
     localStorage.removeItem(localStorageKey);
     setUser(null);
+    instance.defaults.auth = undefined;
   };
 
   const value = { user, signIn, signOut };
