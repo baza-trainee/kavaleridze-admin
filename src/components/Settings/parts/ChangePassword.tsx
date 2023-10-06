@@ -3,33 +3,37 @@ import { ChangeEvent, FC, FormEventHandler, useState } from 'react'
 import { ErrorText, InputsBox } from '../styles'
 import InputWithLabel from './InputWithLabel'
 
-const ChangePassword: FC = () => {
+interface ChangePasswordProps {
+  openModal: () => void
+}
+
+const ChangePassword: FC<ChangePasswordProps> = ({ openModal }) => {
   const [error, setError] = useState(false)
-  const [values, setValues] = useState({
+  const [data, setData] = useState({
     oldPass: '',
     newPass: '',
     repeatPass: '',
   })
-  const { oldPass, newPass, repeatPass } = values
+  const { oldPass, newPass, repeatPass } = data
 
   interface InputsData {
     oldPass: string
     newPass: string
     repeatPass: string
   }
-  const isValid = (inputsData: InputsData): boolean => {
-    const areMatch = inputsData.newPass === inputsData.repeatPass
-    return Object.values(values).every(el => el.length) && areMatch
+  const isBtnDisabled = (inputsData: InputsData): boolean => {
+    return Object.values(inputsData).every(el => el.length)
   }
 
   const handleChange = (key: string) => (event: ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [key]: event.target.value })
+    setData({ ...data, [key]: event.target.value })
   }
 
   const onSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-    console.log(values)
-    setError(!isValid(values))
+    if (data.newPass !== data.repeatPass) return setError(!error)
+    console.log(data)
+    openModal()
   }
 
   return (
@@ -62,7 +66,7 @@ const ChangePassword: FC = () => {
           error={error}
           onClick={() => setError(false)}
         />
-        <Button type="submit" variant="adminPrimaryBtn" disabled={!isValid(values)}>
+        <Button type="submit" variant="adminPrimaryBtn" disabled={!isBtnDisabled(data)}>
           Зберегти зміни
         </Button>
         {error && <ErrorText>Паролі не співпадають. Спробуйте ще раз.</ErrorText>}

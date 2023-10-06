@@ -4,7 +4,7 @@ import { ChangeEvent, Dispatch, FC, MouseEvent, MouseEventHandler, useState } fr
 
 interface InputWithLabelProps {
   label: string
-  type: string
+  type?: string
   placeholder?: string
   value: string
   error?: boolean
