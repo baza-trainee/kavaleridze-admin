@@ -1,40 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import PageTemplate from "../Common/PageTemplate";
 import ContactField from "./ContactField";
 import { Box } from "@mui/material";
 
-type FieldName = "phoneNumber" | "email" | "metro" | "funicular" | "bus";
+import { getContactInfo, updateContactInfo } from "@/api";
+
+type FieldName =
+  | "phoneNumber"
+  | "email"
+  | "subwayRoute"
+  | "funicularRoute"
+  | "busRoute";
 
 const Contacts: React.FC = () => {
-  const [formData, setFormData] = useState<Record<FieldName, string>>({
-    phoneNumber: "(044) 425-33-97",
-    email: "kavaleridzemuseum@gmail.com",
-    metro: "до станції “Контрактова площа”, далі пройти пішки близько 1 км",
-    funicular:
-      "від станції “Поштова площа” піднятися  до  Михайлівської площі, далі пройти по вулиці Володимирській до Андріївського узвозу, 21.",
-    bus: "114 119 18ТР",
+  const [contactInfo, setContactInfo] = useState({
+    phoneNumber: "",
+    email: "",
+    subwayRoute: "",
+    funicularRoute: "",
+    busRoute: "",
   });
+
+  // const [formData, setFormData] = useState<Record<FieldName, string>>({
+  //   phoneNumber: "(044) 425-33-97",
+  //   email: "kavaleridzemuseum@gmail.com",
+  //   subwayRoute:
+  //     "до станції “Контрактова площа”, далі пройти пішки близько 1 км",
+  //   funicularRoute:
+  //     "від станції “Поштова площа” піднятися  до  Михайлівської площі, далі пройти по вулиці Володимирській до Андріївського узвозу, 21.",
+  //   busRoute: "114 119 18ТР",
+  // });
 
   const { control, handleSubmit, setValue, getValues } = useForm<FieldValues>({
     mode: "all",
     defaultValues: {
-      phoneNumber: formData.phoneNumber,
-      email: formData.email,
-      metro: formData.metro,
-      funicular: formData.funicular,
-      bus: formData.bus,
+      phoneNumber: contactInfo.phoneNumber,
+      email: contactInfo.email,
+      subwayRoute: contactInfo.subwayRoute,
+      funicularRoute: contactInfo.funicularRoute,
+      busRoute: contactInfo.busRoute,
     },
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getContactInfo();
+
+        setContactInfo(response.data);
+
+        setValue("phoneNumber", response.data.phoneNumber || "");
+        setValue("email", response.data.email || "");
+        setValue("subwayRoute", response.data.subwayRoute || "");
+        setValue("funicularRoute", response.data.funicularRoute || "");
+        setValue("busRoute", response.data.busRoute || "");
+      } catch (error) {
+        console.error("Помилка при відправленні даних з серверу:", error);
+      }
+    };
+
+    fetchData();
+  }, [setValue]);
 
   const [fieldChanges, setFieldChanges] = useState<{
     [key in FieldName]: boolean;
   }>({
     phoneNumber: false,
     email: false,
-    metro: false,
-    funicular: false,
-    bus: false,
+    subwayRoute: false,
+    funicularRoute: false,
+    busRoute: false,
   });
 
   const handleInputChange = (field: FieldName, value: string) => {
@@ -45,7 +81,7 @@ const Contacts: React.FC = () => {
       [field]: isValueChanged,
     }));
 
-    setFormData((prevData) => ({
+    setContactInfo((prevData) => ({
       ...prevData,
       [field]: value,
     }));
@@ -53,16 +89,24 @@ const Contacts: React.FC = () => {
     setValue(field, value);
   };
 
-  const handleSave = (field: FieldName, value: string) => {
-    const dataToSend = {
-      [field]: value,
-    };
-    console.log("Дані відправлені на сервер:", dataToSend);
+  const handleSave = async () => {
+    try {
+      // Надіслати усі дані об'єкта contactInfo на сервер
+      await updateContactInfo(contactInfo);
+      console.log("Дані відправлені на сервер:", contactInfo);
 
-    setFieldChanges((prevChanges) => ({
-      ...prevChanges,
-      [field]: false,
-    }));
+      // Скинути флажки змін у полях
+      setFieldChanges({
+        phoneNumber: false,
+        email: false,
+        subwayRoute: false,
+        funicularRoute: false,
+        busRoute: false,
+      });
+    } catch (error) {
+      // Обробка помилок
+      console.error("Помилка при відправленні даних на сервер:", error);
+    }
   };
 
   return (
@@ -74,7 +118,7 @@ const Contacts: React.FC = () => {
             fieldName="phoneNumber"
             control={control}
             onChange={(value) => handleInputChange("phoneNumber", value)}
-            onSave={() => handleSave("phoneNumber", getValues("phoneNumber"))}
+            onSave={() => handleSave()}
             isChanged={fieldChanges.phoneNumber}
             iconId="phone"
           />
@@ -83,39 +127,39 @@ const Contacts: React.FC = () => {
             fieldName="email"
             control={control}
             onChange={(value) => handleInputChange("email", value)}
-            onSave={() => handleSave("email", getValues("email"))}
+            onSave={() => handleSave()}
             isChanged={fieldChanges.email}
             iconId="email"
           />
           <ContactField
             label="Метро"
-            fieldName="metro"
+            fieldName="subwayRoute"
             isMulti={true}
             rows={4}
             control={control}
-            onChange={(value) => handleInputChange("metro", value)}
-            onSave={() => handleSave("metro", getValues("metro"))}
-            isChanged={fieldChanges.metro}
+            onChange={(value) => handleInputChange("subwayRoute", value)}
+            onSave={() => handleSave()}
+            isChanged={fieldChanges.subwayRoute}
           />
           <ContactField
             label="Фунікулер"
-            fieldName="funicular"
+            fieldName="funicularRoute"
             isMulti={true}
             rows={4}
             control={control}
-            onChange={(value) => handleInputChange("funicular", value)}
-            onSave={() => handleSave("funicular", getValues("funicular"))}
-            isChanged={fieldChanges.funicular}
+            onChange={(value) => handleInputChange("funicularRoute", value)}
+            onSave={() => handleSave()}
+            isChanged={fieldChanges.funicularRoute}
           />
           <ContactField
             label="Автобус"
-            fieldName="bus"
+            fieldName="busRoute"
             isMulti={true}
             rows={4}
             control={control}
-            onChange={(value) => handleInputChange("bus", value)}
-            onSave={() => handleSave("bus", getValues("bus"))}
-            isChanged={fieldChanges.bus}
+            onChange={(value) => handleInputChange("busRoute", value)}
+            onSave={() => handleSave()}
+            isChanged={fieldChanges.busRoute}
           />
         </Box>
       </form>
