@@ -9,12 +9,13 @@ export const MuiTab: Components<Theme>['MuiTab'] = {
       fontWeight: 600,
       lineHeight: 1.55,
       color: theme.palette.gray.dark,
+      paddingBottom: '16px',
       [theme.breakpoints.up('xs')]: {
-        padding: '24px 0 16px',
+        // padding: '24px 0 16px',
         fontSize: '14px',
       },
       [theme.breakpoints.up('md')]: {
-        padding: '32px 0 16px',
+        // padding: '32px 0 16px',
         fontSize: '18px',
       },
       '&.Mui-selected': {

@@ -1,9 +1,9 @@
 import { Box, Button } from '@mui/material'
 import { ChangeEvent, FC, FormEventHandler, useState } from 'react'
 
-import InputWithLabel from './InputWithLabel'
 import { ErrorText, InputsBox } from '../styles'
 import { validationSchema } from '../validationSchema/email'
+import InputWithLabel from './InputWithLabel'
 
 interface ChangeLoginProps {
   openModal: () => void
@@ -58,8 +58,6 @@ const ChangeLogin: FC<ChangeLoginProps> = ({ openModal }) => {
           error={error}
           onClick={() => setError(false)}
         />
-      </InputsBox>
-      <InputsBox>
         <InputWithLabel
           label="Новий логін"
           type="text"
@@ -69,8 +67,6 @@ const ChangeLogin: FC<ChangeLoginProps> = ({ openModal }) => {
           error={error}
           onClick={() => setError(false)}
         />
-      </InputsBox>
-      <InputsBox>
         <InputWithLabel
           label="Повторіть новий логін"
           type="text"

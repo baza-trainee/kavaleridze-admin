@@ -2,14 +2,8 @@ import { Components, Theme } from '@mui/material'
 
 export const MuiTabs: Components<Theme>['MuiTabs'] = {
   styleOverrides: {
-    root: ({ theme }) => ({
+    root: () => ({
       minHeight: '0',
-      [theme.breakpoints.up('xs')]: {
-        paddingLeft: '16px',
-      },
-      [theme.breakpoints.up('md')]: {
-        paddingLeft: '24px',
-      },
     }),
 
     indicator: ({ theme }) => ({

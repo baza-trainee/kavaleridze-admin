@@ -4,14 +4,13 @@ import { FC } from 'react'
 import { CustomDialog, ModalText } from '../styles'
 
 interface ModalWindProps {
-  boxWidth?: number | undefined
   closeModal: () => void
   open: boolean
 }
 
-const ModalWind: FC<ModalWindProps> = ({ boxWidth, closeModal, open }) => {
+const ModalWind: FC<ModalWindProps> = ({ closeModal, open }) => {
   return (
-    <CustomDialog sx={{ width: boxWidth, marginLeft: 'auto' }} onClose={closeModal} open={open}>
+    <CustomDialog onClose={closeModal} open={open}>
       <IconButton
         onClick={closeModal}
         sx={{

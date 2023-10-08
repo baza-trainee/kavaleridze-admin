@@ -17,21 +17,32 @@ export const CustomDivider = styled(Divider)(({ theme }) => ({
 
 // ==== ChangePassword ====
 
-export const InputsBox = styled(Stack)<StackProps>(({ theme }) => ({
+export const ContentBox = styled(Box)<BoxProps>(({ theme }) => ({
+  position: 'relative',
   margin: '0px auto',
   [theme.breakpoints.up('xs')]: {
-    paddingTop: '32px',
     width: '288px',
-    rowGap: '24px',
   },
   [theme.breakpoints.up('md')]: {
-    paddingTop: '40px',
     width: '440px',
-    rowGap: '32px',
   },
   [theme.breakpoints.up('lg')]: {
     width: '460px',
   },
+}))
+
+export const InputsBox = styled(Stack)<StackProps>(({ theme }) => ({
+  [theme.breakpoints.up('xs')]: {
+    paddingTop: '32px',
+
+    rowGap: '24px',
+  },
+  [theme.breakpoints.up('md')]: {
+    paddingTop: '40px',
+
+    rowGap: '32px',
+  },
+  [theme.breakpoints.up('lg')]: {},
 }))
 
 export const ErrorText = styled(Typography)<TypographyProps>(({ theme }) => ({
@@ -58,17 +69,21 @@ export const ErrorText = styled(Typography)<TypographyProps>(({ theme }) => ({
 export const CustomDialog = styled(Dialog)<DialogProps>(({ theme }) => ({
   '.MuiDialog-paper': {
     padding: '16px',
-    width: '200px',
-    height: '200px',
     borderRadius: '8px',
     maxWidth: 'none',
     margin: 0,
+
     [theme.breakpoints.up('xs')]: {
       width: '280px',
       height: '148px',
     },
     [theme.breakpoints.up('md')]: {
       width: '440px',
+      height: '156px',
+      left: '10%',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '500px',
       height: '156px',
     },
   },
