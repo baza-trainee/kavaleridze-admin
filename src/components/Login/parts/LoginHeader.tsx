@@ -1,8 +1,7 @@
-import { Box, Container } from '@mui/material'
-import { FC } from 'react'
-import { HeaderBox, HeaderLogoBox } from '../styles'
-
-import logo from '../../../assets/images/Logo.svg'
+import { Box, Container } from '@mui/material';
+import { FC } from 'react';
+import { HeaderBox, HeaderLogoBox } from '../styles';
+import logo from '@/assets/images/fullLogo.svg';
 
 const LoginHeader: FC = () => {
   return (
@@ -13,7 +12,7 @@ const LoginHeader: FC = () => {
         </HeaderLogoBox>
       </Container>
     </HeaderBox>
-  )
-}
+  );
+};
 
-export default LoginHeader
+export default LoginHeader;
