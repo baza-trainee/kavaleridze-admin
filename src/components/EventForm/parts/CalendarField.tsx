@@ -5,7 +5,7 @@ import { InputLabel, Typography } from '@mui/material';
 import { InputFormProps } from '@/types/events';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { DateTime } from 'luxon';
-import SvgSpriteIcon from '../Common/SvgSprite';
+import SvgSpriteIcon from '../../Common/SvgSprite';
 
 const CalendarIcon = () => {
   return <SvgSpriteIcon iconId="calendar" />;

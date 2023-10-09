@@ -1,24 +1,21 @@
-import { FC } from 'react';
-import { Box, Grid, Typography, Button } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import TypeSelect from './TypeSelect';
-import EventField from './EventField';
-import CalendarField from './CalendarField';
-import ImageField from './ImageField';
+import { FC, FormEventHandler } from 'react';
+import { Box, Grid, Typography, Button, Stack } from '@mui/material';
+import { Control } from 'react-hook-form';
+import TypeSelect from './parts/TypeSelect';
+import EventField from './parts/EventField';
+import CalendarField from './parts/CalendarField';
+import ImageField from './parts/ImageField';
 import { IEventValues } from '@/types/events';
 
 interface EventFormProps {
-  defaultValues: IEventValues;
+  control: Control<IEventValues>;
+  onPublish: FormEventHandler<HTMLFormElement>;
+  onCancel: () => void;
 }
 
-const EventForm: FC<EventFormProps> = ({ defaultValues }) => {
-  const { control, handleSubmit } = useForm({
-    defaultValues: defaultValues,
-  });
-  const onSubmit = (data: IEventValues) => console.log(data);
-
+const EventForm: FC<EventFormProps> = ({ control, onPublish, onCancel }) => {
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+    <Box component="form" onSubmit={onPublish}>
       <Grid container columnSpacing="30px" rowSpacing={4}>
         <Grid item xs={12} lg={6}>
           <EventField
@@ -31,7 +28,12 @@ const EventForm: FC<EventFormProps> = ({ defaultValues }) => {
           />
         </Grid>
         <Grid item xs={12} lg={6}>
-          <TypeSelect label="Тип події" control={control} required={true} />
+          <TypeSelect
+            label="Тип події"
+            control={control}
+            required={true}
+            name="type"
+          />
         </Grid>
         <Grid item container columnSpacing="30px" rowSpacing={1}>
           <Grid item xs={12} lg={6}>
@@ -63,7 +65,7 @@ const EventForm: FC<EventFormProps> = ({ defaultValues }) => {
             control={control}
             label="Короткий опис події"
             required={true}
-            name="shortDesc"
+            name="summary"
             placeholder="Введіть Ваш текст"
             row={3}
             maxLength={150}
@@ -80,20 +82,32 @@ const EventForm: FC<EventFormProps> = ({ defaultValues }) => {
             maxLength={2000}
           />
         </Grid>
+
         <Grid item xs={12}>
           <ImageField
             control={control}
             label="Додати фотографію події*"
             required={true}
-            name="image"
+            name="banner"
             placeholder="Введіть Ваш текст"
           />
         </Grid>
         <Grid item xs={12} textAlign="center">
-          <Button disabled sx={{ marginRight: 4 }}>
-            Опублікувати
-          </Button>
-          <Button disabled>Скасувати</Button>
+          <Stack direction={{ xs: 'column', md: 'row' }}>
+            <Button
+              sx={{ marginRight: 4, width: { xs: 288, md: 248 } }}
+              type="submit"
+            >
+              Опублікувати
+            </Button>
+            <Button
+              sx={{ width: { xs: 288, md: 248 } }}
+              variant="secondary"
+              onClick={onCancel}
+            >
+              Скасувати
+            </Button>
+          </Stack>
         </Grid>
       </Grid>
     </Box>

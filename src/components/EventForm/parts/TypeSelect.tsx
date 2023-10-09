@@ -1,26 +1,15 @@
 import { FC } from 'react';
 import { MenuItem, Box, Select, InputLabel } from '@mui/material';
 import { Controller, Control } from 'react-hook-form';
-import SvgSpriteIcon from '../Common/SvgSprite';
+import SvgSpriteIcon from '../../Common/SvgSprite';
 import { IEventValues } from '@/types/events';
-
-enum TypeEvent {
-  EXHIBITION = 'Виставка',
-  TOUR = 'Екскурсія',
-  PRESENTATION = 'Презентація',
-  COMPETITION = 'Конкурс',
-  LECTURE = 'Лекція',
-  WORKSHOP = 'Майстер-клас',
-  RECITAL = 'Творчій вечір',
-  OTHER = 'Інше',
-}
-
-const typeEventArray = Object.values(TypeEvent);
+import { typeEventArray } from '@/assets/constants/eventType';
 
 interface SelectFormProps {
   label: string;
   control: Control<IEventValues>;
   required: boolean;
+  name: string;
 }
 
 const TypeSelect: FC<SelectFormProps> = ({ control, label, required }) => {
@@ -39,30 +28,35 @@ const TypeSelect: FC<SelectFormProps> = ({ control, label, required }) => {
             displayEmpty
             fullWidth
             required
-            renderValue={() =>
-              field.value === '' ? (
+            renderValue={() => {
+              const valueForRender = typeEventArray.find(
+                (item) => item[0] === field.value
+              );
+              return field.value === '' ? (
                 <Box
                   component="span"
                   sx={{ color: (theme) => theme.palette.text.secondary }}
                 >
                   Оберіть з переліку подій
                 </Box>
+              ) : valueForRender ? (
+                valueForRender[1]
               ) : (
-                field.value
-              )
-            }
+                ''
+              );
+            }}
             IconComponent={(props) => (
               <SvgSpriteIcon {...props} iconId="select-arrow" />
             )}
           >
             {typeEventArray.map((item) => (
               <MenuItem
-                key={item}
-                value={item}
+                key={item[0]}
+                value={item[0]}
                 disableRipple
                 disableTouchRipple
               >
-                {item}
+                {item[1]}
               </MenuItem>
             ))}
           </Select>

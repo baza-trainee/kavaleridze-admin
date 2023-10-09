@@ -1,26 +1,48 @@
-import { FC, useState, useRef, DragEvent, ChangeEvent } from 'react';
+import { FC, useState, useRef, DragEvent, ChangeEvent, useEffect } from 'react';
 import { InputLabel, Box, Typography, IconButton } from '@mui/material';
 import { Controller } from 'react-hook-form';
-import SvgSpriteIcon from '../Common/SvgSprite';
+import SvgSpriteIcon from '../../Common/SvgSprite';
 import picture from '@/assets/images/picture.svg';
 import { InputFormProps } from '@/types/events';
 import { VisuallyHiddenInput, DragDropWrapper, UploadImageBox } from './styles';
 import EditImage from './EditImage';
-interface IImageState extends File {
-  url: string;
-}
+import { IImageState } from '@/types/events';
+import { saveNewImage, createImageState } from '@/helpers/imageUrl';
+import { useController } from 'react-hook-form';
 
 const ImageField: FC<InputFormProps> = ({ control, label, name, required }) => {
+  const {
+    field: { value, onChange },
+  } = useController({ control, name });
   const [image, setImage] = useState<IImageState | null>(null);
+  const [banner, setBanner] = useState<IImageState | null>(null);
   const [open, setOpen] = useState(false);
-
-  // const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const imageRef = useRef(null);
+
+  useEffect(() => {
+    if (value) {
+      const imageState = createImageState(value, 'saved');
+      setImage(imageState);
+      setBanner(imageState);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (banner) onChange(banner.id);
+  }, [banner, onChange]);
+
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  const setFile = (file: File) => {
-    setImage({ ...file, url: URL.createObjectURL(file) });
+  const setFile = async (file: File) => {
+    const serverImage = await saveNewImage(file);
+    setImage(serverImage);
+    setBanner(serverImage);
+  };
+
+  const onChangeImage = (image: IImageState) => {
+    setBanner(image);
   };
 
   const onDrop = (e: DragEvent<HTMLDivElement>) => {
@@ -36,7 +58,7 @@ const ImageField: FC<InputFormProps> = ({ control, label, name, required }) => {
     e.dataTransfer.dropEffect = 'copy';
   };
 
-  const onUploadImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const onUploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (!files || files.length === 0) return;
     if (files[0].type.split('/')[0] !== 'image') return;
@@ -64,11 +86,11 @@ const ImageField: FC<InputFormProps> = ({ control, label, name, required }) => {
               onDragLeave={onDragLeave}
               draggable="true"
             >
-              {image ? (
+              {banner ? (
                 <Box position="relative">
                   <Box
                     component="img"
-                    src={image.url}
+                    src={banner.url}
                     alt="events image"
                     sx={{
                       width: '100%',
@@ -116,7 +138,13 @@ const ImageField: FC<InputFormProps> = ({ control, label, name, required }) => {
         )}
       />
       {image && (
-        <EditImage open={open} onClose={onCloseModal} imageSrc={image?.url} />
+        <EditImage
+          open={open}
+          onClose={onCloseModal}
+          imageSrc={image.url}
+          onChangeImage={onChangeImage}
+          onUploadFile={onUploadImage}
+        />
       )}
     </>
   );

@@ -1,19 +1,35 @@
-import { FC, useState, useRef } from 'react';
+import { FC, useState, useRef, ChangeEvent } from 'react';
 import { Stack, Typography, IconButton, Button } from '@mui/material';
 import Cropper, { Area, Point } from 'react-easy-crop';
-import SvgSpriteIcon from '../Common/SvgSprite';
-import { ImageDialog, RotateButton, ZoomButton, CropWrapper } from './styles';
+import SvgSpriteIcon from '../../Common/SvgSprite';
+import {
+  ImageDialog,
+  RotateButton,
+  ZoomButton,
+  CropWrapper,
+  VisuallyHiddenInput,
+} from './styles';
 import RatioSelect from './RatioSelect';
 import { aspectRatioMenu } from '@/assets/constants/aspectRatio';
+import { getCroppedImage } from '@/helpers/cropImage';
+import { IImageState } from '@/types/events';
 
 interface EditImageProps {
   open: boolean;
   onClose: () => void;
   imageSrc: string;
+  onChangeImage: (url: IImageState) => void;
+  onUploadFile: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const EditImage: FC<EditImageProps> = ({ open, onClose, imageSrc }) => {
-  const [croppedImage, setCroppedImage] = useState<string | null>(null);
+const EditImage: FC<EditImageProps> = ({
+  open,
+  onClose,
+  imageSrc,
+  onChangeImage,
+  onUploadFile,
+}) => {
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [aspectRatio, setAspectRatio] = useState<number>(
     aspectRatioMenu[1].value
   );
@@ -21,31 +37,30 @@ const EditImage: FC<EditImageProps> = ({ open, onClose, imageSrc }) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const containerRef = useRef(null);
-  //   const imageRef = useRef(null);
+  const imageRef = useRef(null);
 
   const onChangeAspectRatio = (value: number) => {
     setAspectRatio(value);
   };
-  const onCropComplete = (_: Area, croppedAreaPixels: Area) => {
-    // setCroppedAreaPixels(croppedAreaPixels);
 
-    const canvas = document.createElement('canvas') as HTMLCanvasElement;
-    const ctx = canvas.getContext('2d');
-    const { height, width, x, y } = croppedAreaPixels;
-    if (!ctx) {
-      return null;
+  const onCropComplete = async (_: Area, croppedAreaPixels: Area) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  };
+
+  const onSaveImage = async () => {
+    if (!croppedAreaPixels) {
+      return;
     }
-    const newImage = new Image();
-    newImage.src = imageSrc;
+    const croppedImage = await getCroppedImage(
+      imageSrc,
+      croppedAreaPixels,
+      rotation
+    );
 
-    canvas.width = width;
-    canvas.height = height;
-    ctx.drawImage(newImage, x, y, width, height, 0, 0, width, height);
-    canvas.toBlob((file) => {
-      if (file) {
-        setCroppedImage(URL.createObjectURL(file));
-      }
-    }, 'image/jpeg');
+    if (croppedImage) {
+      onChangeImage(croppedImage);
+    }
+    onClose();
   };
 
   return (
@@ -113,10 +128,17 @@ const EditImage: FC<EditImageProps> = ({ open, onClose, imageSrc }) => {
           </Stack>
         </Stack>
         <Stack direction="row" gap={3} justifyContent="center">
-          <Button variant="secondary" sx={{ width: 264 }}>
+          <Button variant="secondary" sx={{ width: 264 }} component="label">
             Змінити фото
+            <VisuallyHiddenInput
+              type="file"
+              ref={imageRef}
+              onChange={onUploadFile}
+            />
           </Button>
-          <Button sx={{ width: 264 }}>Зберегти зміни</Button>
+          <Button sx={{ width: 264 }} onClick={onSaveImage}>
+            Зберегти зміни
+          </Button>
         </Stack>
       </Stack>
     </ImageDialog>

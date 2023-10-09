@@ -20,11 +20,6 @@ const EventField: FC<InputFormProps> = ({
         <>
           <InputLabel shrink={false} htmlFor={field.name} required={required}>
             {label}
-            {!required && (
-              <Typography variant="body2" component="span" ml={1}>
-                (не обовʼязково)
-              </Typography>
-            )}
           </InputLabel>
 
           <TextField

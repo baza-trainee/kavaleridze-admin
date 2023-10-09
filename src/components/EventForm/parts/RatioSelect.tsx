@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { MenuItem, SelectChangeEvent, Box } from '@mui/material';
-import SvgSpriteIcon from '../Common/SvgSprite';
+import SvgSpriteIcon from '../../Common/SvgSprite';
 import { aspectRatioMenu } from '@/assets/constants/aspectRatio';
 import { CustomSelect } from './styles';
 
