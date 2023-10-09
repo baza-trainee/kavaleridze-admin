@@ -6,6 +6,22 @@ export const instance = axios.create({
   baseURL: BASE_URL,
 });
 
+interface LoginResponse {
+  roles: string[];
+}
+
+export const login = (username: string, password: string) => {
+  return instance.post<LoginResponse>(
+    '/admin/login',
+    {},
+    { auth: { username, password } }
+  );
+};
+
+export const logout = () => {
+  return instance.post('/admin/logout');
+};
+
 export const getContactInfo = () => {
   console.log('BASE-URL from environment', BASE_URL);
   console.log('axios base url', instance.getUri());
