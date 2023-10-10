@@ -56,7 +56,7 @@ const Contacts: React.FC = () => {
         setValue("funicularRoute", response.data.funicularRoute || "");
         setValue("busRoute", response.data.busRoute || "");
       } catch (error) {
-        console.error("Помилка при відправленні даних з серверу:", error);
+        console.error("Помилка при отриманні даних з серверу:", error);
       }
     };
 

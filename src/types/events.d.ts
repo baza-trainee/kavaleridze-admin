@@ -1,4 +1,4 @@
-import { Control } from 'react-hook-form';
+import { Control } from "react-hook-form";
 
 export interface IEventValues {
   title: string;
@@ -8,6 +8,15 @@ export interface IEventValues {
   summary: string;
   description: string;
   banner: string;
+}
+
+interface IContactInfo {
+  id?: string;
+  phoneNumber: string;
+  email: string;
+  subwayRoute: string;
+  funicularRoute: string;
+  busRoute: string;
 }
 
 export interface InputFormProps {
