@@ -25,7 +25,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     return admin ? JSON.parse(admin) : null;
   });
 
-  console.log('user', user);
 
   useEffect(() => {
     if (user) {

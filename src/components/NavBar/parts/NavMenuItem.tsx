@@ -11,7 +11,7 @@ interface NavMenuItemProp {
   click?: () => void;
 }
 
-const NavMenuItem: FC<NavMenuItemProp> = ({ href, title, icon, click }) => {
+const NavMenuItem: FC<NavMenuItemProp> = ({ href, title, icon, click, }) => {
   const isActiveLink = useActiveLink(href);
   return (
     <ListItem disablePadding onClick={click}>

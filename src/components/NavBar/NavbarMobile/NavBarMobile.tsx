@@ -18,7 +18,6 @@ const NavBarMobile: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(theme);
   const  Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
   return (
@@ -36,7 +35,7 @@ const NavBarMobile: FC = () => {
           variant="text"
           onClick={handleClose}
         />
-        <Navigation navigation={navigation} />
+        <Navigation handleClose={handleClose} navigation={navigation} />
         <Box
           sx={{
             flex: 1,
