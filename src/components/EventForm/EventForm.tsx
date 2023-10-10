@@ -1,22 +1,70 @@
-import { FC, FormEventHandler } from 'react';
-import { Box, Grid, Typography, Button, Stack } from '@mui/material';
-import { Control } from 'react-hook-form';
+import { FC, useMemo } from 'react';
+import { Box, Grid, Typography, Button, Stack, Alert } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { DateTime } from 'luxon';
 import TypeSelect from './parts/TypeSelect';
 import EventField from './parts/EventField';
 import CalendarField from './parts/CalendarField';
 import ImageField from './parts/ImageField';
 import { IEventValues } from '@/types/events';
+import { validationSchemaEventForm } from './validation';
 
 interface EventFormProps {
-  control: Control<IEventValues>;
-  onPublish: FormEventHandler<HTMLFormElement>;
-  onCancel: () => void;
+  defaultValues: IEventValues;
+  onPublish: (data: IEventValues) => void;
+  type: 'add' | 'edit';
 }
 
-const EventForm: FC<EventFormProps> = ({ control, onPublish, onCancel }) => {
+const EventForm: FC<EventFormProps> = ({ defaultValues, onPublish, type }) => {
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+    watch,
+  } = useForm<IEventValues>({
+    values: defaultValues,
+    mode: 'onSubmit',
+    resolver: yupResolver(validationSchemaEventForm),
+  });
+
+  const begin = watch('begin');
+  const end = watch('end');
+
+  const onCancel = () => {
+    if (type === 'add') {
+      reset();
+    } else {
+      //logic in edit form
+    }
+  };
+
+  const requiredFieldsError = useMemo(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+    return Object.values(errors)
+      .map((item) => item.message)
+      .join(', ');
+  }, [errors]);
+
+  const dateError = useMemo(() => {
+    if (begin && end) {
+      return DateTime.fromISO(begin) >= DateTime.fromISO(end);
+    }
+    return false;
+  }, [begin, end]);
+
   return (
-    <Box component="form" onSubmit={onPublish}>
+    <Box component="form" onSubmit={handleSubmit(onPublish)}>
       <Grid container columnSpacing="30px" rowSpacing={4}>
+        {requiredFieldsError && (
+          <Grid item xs={12}>
+            <Alert variant="outlined" severity="error" icon={false}>
+              Заповніть поля: {requiredFieldsError}
+            </Alert>
+          </Grid>
+        )}
         <Grid item xs={12} lg={6}>
           <EventField
             control={control}
@@ -33,6 +81,7 @@ const EventForm: FC<EventFormProps> = ({ control, onPublish, onCancel }) => {
             control={control}
             required={true}
             name="type"
+            error={!!errors.type}
           />
         </Grid>
         <Grid item container columnSpacing="30px" rowSpacing={1}>
@@ -43,6 +92,7 @@ const EventForm: FC<EventFormProps> = ({ control, onPublish, onCancel }) => {
               required={false}
               name="begin"
               placeholder="дд/мм/рррр"
+              error={dateError}
             />
           </Grid>
           <Grid item xs={12} lg={6}>
@@ -52,10 +102,15 @@ const EventForm: FC<EventFormProps> = ({ control, onPublish, onCancel }) => {
               required={false}
               name="end"
               placeholder="дд/мм/рррр"
+              error={dateError}
+              disabled={!begin}
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body2">
+            <Typography
+              variant="body2"
+              color={dateError ? 'error.main' : 'transparent'}
+            >
               Дата початку повинна бути раніше за дату закінчення
             </Typography>
           </Grid>
@@ -86,22 +141,25 @@ const EventForm: FC<EventFormProps> = ({ control, onPublish, onCancel }) => {
         <Grid item xs={12}>
           <ImageField
             control={control}
-            label="Додати фотографію події*"
+            label="Додати зображення події*"
             required={true}
             name="banner"
             placeholder="Введіть Ваш текст"
+            error={!!errors.banner}
           />
         </Grid>
         <Grid item xs={12} textAlign="center">
-          <Stack direction={{ xs: 'column', md: 'row' }}>
-            <Button
-              sx={{ marginRight: 4, width: { xs: 288, md: 248 } }}
-              type="submit"
-            >
+          <Stack
+            direction={{ xs: 'column', md: 'row' }}
+            justifyContent="center"
+            alignItems="center"
+            gap={{ xs: 2, md: 3 }}
+          >
+            <Button sx={{ width: { xs: '100%', md: 248 } }} type="submit">
               Опублікувати
             </Button>
             <Button
-              sx={{ width: { xs: 288, md: 248 } }}
+              sx={{ width: { xs: '100%', md: 248 } }}
               variant="secondary"
               onClick={onCancel}
             >

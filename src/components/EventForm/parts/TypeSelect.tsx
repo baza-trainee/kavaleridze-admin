@@ -10,9 +10,15 @@ interface SelectFormProps {
   control: Control<IEventValues>;
   required: boolean;
   name: string;
+  error: boolean;
 }
 
-const TypeSelect: FC<SelectFormProps> = ({ control, label, required }) => {
+const TypeSelect: FC<SelectFormProps> = ({
+  control,
+  label,
+  required,
+  error,
+}) => {
   return (
     <Controller
       name="type"
@@ -27,7 +33,7 @@ const TypeSelect: FC<SelectFormProps> = ({ control, label, required }) => {
             variant="outlined"
             displayEmpty
             fullWidth
-            required
+            error={error}
             renderValue={() => {
               const valueForRender = typeEventArray.find(
                 (item) => item[0] === field.value

@@ -29,7 +29,9 @@ const RatioSelect: FC<RatioSelectProps> = ({ onChangeValue }) => {
         value !== '' ? (
           aspectRatioMenu.find((item) => item.value === value)?.title || ''
         ) : (
-          <Box component="span">Пропорції фото</Box>
+          <Box sx={{ textAlign: 'left' }} component="span">
+            Пропорції фото
+          </Box>
         )
       }
       MenuProps={{
@@ -48,7 +50,7 @@ const RatioSelect: FC<RatioSelectProps> = ({ onChangeValue }) => {
 
             '& .MuiMenuItem-root': {
               padding: '8px',
-              fontSize: 18,
+              fontSize: { xs: 16, md: 18 },
               fontWeight: 500,
               justifyContent: 'center',
             },

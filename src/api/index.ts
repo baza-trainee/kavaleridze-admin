@@ -1,13 +1,11 @@
+import { IEventValues } from '@/types/events';
 import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_SERVER_URL;
 
 export const instance = axios.create({
   baseURL: BASE_URL,
-  auth: {
-    username: 'root',
-    password: 'password',
-  },
+  withCredentials: true,
 });
 
 interface LoginResponse {
@@ -31,4 +29,21 @@ export const getContactInfo = () => {
   console.log('axios base url', instance.getUri());
 
   return instance.get('/museum_data');
+};
+
+interface AddImageResponse {
+  imageId: string;
+}
+
+export const addNewImage = (file: File | Blob) => {
+  const headers = { 'Content-Type': 'multipart/form-data' };
+  const formData = new FormData();
+  formData.append('file', file);
+  return instance.post<AddImageResponse>('/admin/images', formData, {
+    headers,
+  });
+};
+
+export const addEvent = (data: IEventValues) => {
+  return instance.post('/admin/events', data);
 };

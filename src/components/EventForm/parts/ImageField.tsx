@@ -7,10 +7,20 @@ import { InputFormProps } from '@/types/events';
 import { VisuallyHiddenInput, DragDropWrapper, UploadImageBox } from './styles';
 import EditImage from './EditImage';
 import { IImageState } from '@/types/events';
-import { saveNewImage, createImageState } from '@/helpers/imageUrl';
+import { saveNewImage } from '@/helpers/imageUrl';
 import { useController } from 'react-hook-form';
 
-const ImageField: FC<InputFormProps> = ({ control, label, name, required }) => {
+interface ImageFieldProps extends InputFormProps {
+  error: boolean;
+}
+
+const ImageField: FC<ImageFieldProps> = ({
+  control,
+  label,
+  name,
+  required,
+  error,
+}) => {
   const {
     field: { value, onChange },
   } = useController({ control, name });
@@ -21,9 +31,11 @@ const ImageField: FC<InputFormProps> = ({ control, label, name, required }) => {
 
   useEffect(() => {
     if (value) {
-      const imageState = createImageState(value, 'saved');
-      setImage(imageState);
-      setBanner(imageState);
+      //ToDo = convert image from server to local URL and saved it to image and banner
+
+      // setImage(imageState);
+      // setBanner(imageState);
+      console.log('image comes wit defaults value');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -85,6 +97,7 @@ const ImageField: FC<InputFormProps> = ({ control, label, name, required }) => {
               onDragOver={onDragOver}
               onDragLeave={onDragLeave}
               draggable="true"
+              error={error}
             >
               {banner ? (
                 <Box position="relative">

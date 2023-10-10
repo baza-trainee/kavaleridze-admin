@@ -11,15 +11,21 @@ export const VisuallyHiddenInput = styled('input')({
   whiteSpace: 'nowrap',
   width: 1,
 });
-
-export const DragDropWrapper = styled(Box)({
-  display: 'block',
-  mt: 3,
-  width: '100%',
-  height: 'auto',
-  maxHeight: 900,
-  borderRadius: '4px',
-});
+interface DragAndDropWrapperProps {
+  error: boolean;
+}
+export const DragDropWrapper = styled(Box)<DragAndDropWrapperProps>(
+  ({ error, theme }) => ({
+    display: 'block',
+    width: '100%',
+    height: 'auto',
+    maxHeight: 900,
+    border: '1px solid',
+    borderColor: error ? theme.palette.error.main : 'transparent',
+    borderRadius: '4px',
+    overflow: 'hidden',
+  })
+);
 
 interface AspectRatioProp {
   ratio: number;
@@ -47,19 +53,22 @@ export const ImageDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
     margin: 0,
     width: '100%',
-    maxWidth: '100%',
-    height: '100%',
+    maxWidth: '500px',
+    height: 'auto%',
     maxHeight: '100%',
     padding: '16px 24px',
 
     [`${theme.breakpoints.up('md')}`]: {
       maxHeight: 'calc(100% - 64px)',
       padding: '24px 32px',
+      maxWidth: 617,
+      height: 'auto',
     },
 
     [`${theme.breakpoints.up('lg')}`]: {
       height: 'auto',
-      width: '914px',
+      width: 914,
+      maxWidth: 914,
       maxHeight: 'fit-content',
       padding: '32px 40px',
     },
@@ -89,11 +98,12 @@ export const ZoomButton = styled(IconButton)(({ theme }) => ({
 }));
 
 export const CustomSelect = styled(Select)(({ theme }) => ({
-  width: 198,
+  width: '100%',
+  minWidth: 198,
   backgroundColor: theme.palette.gray.light,
-  fontSize: 18,
-  fontWeight: 600,
-  textAlign: 'center',
+  fontSize: 16,
+  fontWeight: 500,
+
   transition: theme.transitions.create('backgroundColor'),
 
   '&:hover': {
@@ -121,5 +131,10 @@ export const CustomSelect = styled(Select)(({ theme }) => ({
 
   '&:hover .MuiOutlinedInput-notchedOutline': {
     borderColor: 'transparent',
+  },
+
+  [`${theme.breakpoints.up('md')}`]: {
+    width: 198,
+    fontSize: 18,
   },
 }));

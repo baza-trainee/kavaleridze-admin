@@ -23,5 +23,4 @@ export interface InputFormProps {
 export interface IImageState {
   id: string;
   url: string;
-  status: 'new' | 'saved';
 }

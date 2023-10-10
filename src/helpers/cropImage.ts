@@ -2,8 +2,6 @@
 // https: valentinh.github.io/react-easy-crop/
 
 import { Area } from 'react-easy-crop';
-import { IImageState } from '@/types/events';
-import { saveNewImage } from './imageUrl';
 
 export const createImage = (url: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
@@ -11,6 +9,7 @@ export const createImage = (url: string): Promise<HTMLImageElement> =>
     image.addEventListener('load', () => resolve(image));
     image.addEventListener('error', (error) => reject(error));
     image.src = url;
+
     return image;
   });
 
@@ -34,7 +33,7 @@ export const getCroppedImage = async (
   pixelCrop: Area,
   rotation: number,
   flip = { horizontal: false, vertical: false }
-): Promise<IImageState | null> => {
+): Promise<Blob | null> => {
   const image = await createImage(imageSrc);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
@@ -83,9 +82,7 @@ export const getCroppedImage = async (
 
   return new Promise((resolve) => {
     croppedCanvas.toBlob((file) => {
-      if (file) {
-        saveNewImage(file).then((res) => resolve(res));
-      }
+      resolve(file);
     }, 'image/jpeg');
   });
 };
