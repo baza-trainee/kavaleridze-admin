@@ -72,9 +72,9 @@ export const MuiButton: Components<Theme>['MuiButton'] = {
       props: { variant: 'secondary' },
       style: ({ theme }) => ({
         fontSize: '1.125rem',
-        // [theme.breakpoints.down('lg')]: {
-        //   fontSize: '1rem',
-        // },
+        [theme.breakpoints.down('lg')]: {
+          fontSize: '1rem',
+        },
         fontWeight: 500,
         lineHeight: 'normal',
         borderRadius: '8px',
