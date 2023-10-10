@@ -1,29 +1,30 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import PageTemplate from '../Common/PageTemplate';
 import EventForm from '../EventForm/EventForm';
-import { getContactInfo } from '@/api';
+import { IEventValues } from '@/types/events';
+import { addEvent } from '@/api';
 
 const AddEvent: FC = () => {
-  const defaultValues = {
+  const defaultValues: IEventValues = {
     type: '',
     title: '',
-    begin: '2023-10-17',
-    shortDesc: '',
+    summary: '',
     description: '',
-    image: '',
+    banner: '',
   };
 
-  useEffect(() => {
-    const asyncRequest = async () => {
-      const data = await getContactInfo();
-      console.log('data in useEffect', data);
-    };
-    asyncRequest();
-  }, []);
+  const onAddEventSubmit = async (data: IEventValues) => {
+    const { data: responseData } = await addEvent(data);
+    console.log(responseData);
+  };
 
   return (
     <PageTemplate title="Додати подію">
-      <EventForm defaultValues={defaultValues} />
+      <EventForm
+        onPublish={onAddEventSubmit}
+        defaultValues={defaultValues}
+        type="add"
+      />
     </PageTemplate>
   );
 };

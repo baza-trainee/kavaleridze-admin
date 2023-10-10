@@ -5,9 +5,9 @@ export interface IEventValues {
   type: string;
   begin?: string;
   end?: string;
-  shortDesc: string;
+  summary: string;
   description: string;
-  image: string;
+  banner: string;
 }
 
 export interface InputFormProps {
@@ -18,4 +18,9 @@ export interface InputFormProps {
   maxLength?: number;
   placeholder: string;
   row?: number | undefined;
+}
+
+export interface IImageState {
+  id: string;
+  url: string;
 }

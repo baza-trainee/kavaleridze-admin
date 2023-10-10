@@ -5,7 +5,6 @@ export const typography: TypographyOptions = {
   button: {
     fontFamily: 'Raleway',
     fontVariantNumeric: 'lining-nums proportional-nums',
-    fontSize: 18,
     fontWeight: 500,
   },
 };

@@ -16,24 +16,19 @@ const EventField: FC<InputFormProps> = ({
     <Controller
       name={name}
       control={control}
-      render={({ field }) => (
+      render={({ field, fieldState: { error } }) => (
         <>
           <InputLabel shrink={false} htmlFor={field.name} required={required}>
             {label}
-            {!required && (
-              <Typography variant="body2" component="span" ml={1}>
-                (не обовʼязково)
-              </Typography>
-            )}
           </InputLabel>
 
           <TextField
             {...field}
             id={field.name}
-            required={required}
             InputLabelProps={{ shrink: true }}
             inputProps={{ maxLength: maxLength || 'auto' }}
             fullWidth
+            error={!!error}
             placeholder={placeholder}
             multiline={!!row}
             rows={row}
