@@ -8,9 +8,7 @@ COPY . /app
 RUN npm install
 RUN VITE_SERVER_URL=${SERVER_URL} npm run build
 
-FROM ubuntu
-RUN apt-get update
-RUN apt-get install nginx -y
-COPY --from=build /app/dist /var/www/html/
+FROM nginx
 EXPOSE 80
-CMD ["nginx","-g","daemon off;"]
+COPY ./docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist /usr/share/nginx/html
