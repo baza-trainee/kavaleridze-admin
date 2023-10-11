@@ -1,6 +1,6 @@
 import ButtonWithIcon from '@/components/Common/ButtonWithIcon';
 import useAuth from '@/hooks/useAuth';
-import { Box, Toolbar, styled, useTheme } from '@mui/material';
+import { Box, Toolbar, styled } from '@mui/material';
 import { FC, useState } from 'react';
 import Navigation from '../parts/Navigation';
 import { navigation } from '../parts/data';
@@ -9,7 +9,6 @@ import { MobileHeader, Wrapper } from './style';
 import { Link } from 'react-router-dom';
 const NavBarMobile: FC = () => {
   const { signOut } = useAuth();
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
