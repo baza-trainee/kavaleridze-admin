@@ -11,6 +11,8 @@ import {
 } from './themed-components/textFiled.modifier';
 import { MuiSvgIcon } from './themed-components/svgIcon.modifier';
 import { MuiInputLabel } from './themed-components/inputLabel.modifier';
+import { MuiIconButton } from './themed-components/iconButton.modifier';
+import { MuiAlert } from './themed-components/alert.modifier';
 
 export const components: Components<Theme> = {
   MuiTypography,
@@ -22,4 +24,6 @@ export const components: Components<Theme> = {
   MuiSvgIcon,
   MuiTextField,
   MuiInputLabel,
+  MuiIconButton,
+  MuiAlert,
 };
