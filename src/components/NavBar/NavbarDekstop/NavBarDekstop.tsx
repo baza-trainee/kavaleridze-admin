@@ -1,34 +1,29 @@
 import { FC, useState } from 'react';
-import { Box, styled } from '@mui/material';
+import { Box, styled, useMediaQuery, useTheme } from '@mui/material';
 import useAuth from '@/hooks/useAuth';
-import logo from '@/assets/images/fullLogo.svg';
-import logoShort from '@/assets/images/smallLogo.svg';
+
 import { CloseButton, ExitButton, ExitWrapper, Wrapper } from './style';
 import Navigation from '../parts/Navigation';
-import { navigation } from '../parts/data';
+
 import { Link } from 'react-router-dom';
+import { makeConstantsVie } from './helper';
 
 const NavBarDekstop: FC = () => {
   const { signOut } = useAuth();
-  const [isShort, setIsShort] = useState(false);
+  const theme = useTheme();
 
-  let rotate = '';
-  let navItems = [...navigation];
-  let insertLogo = logo;
-  let width = '336px';
-  if (isShort) {
-    rotate = 'rotate(180deg)';
-    navItems = navigation.map((item) => ({ ...item, title: '' }));
-    insertLogo = logoShort;
-    width = '164px';
-  }
+  const isLaptop = useMediaQuery(theme.breakpoints.down('lg'));
+
+  const [isShort, setIsShort] = useState(isLaptop);
+
+  const { rotate, title, navItems, insertLogo, width } = makeConstantsVie(isShort, isLaptop);
   const Offset = styled('div')({
     height: '100vh',
     width,
   });
   return (
     <Box>
-      <Wrapper sx={{ position: 'fixed' }}>
+      <Wrapper sx={{ position: 'fixed', zIndex: 1 }}>
         <Box component="img" sx={{ maxWidth: '240px', alignSelf: 'end' }} src={insertLogo} alt="logo" mb={2} />
         <Navigation navigation={navItems} />
         <CloseButton
@@ -43,7 +38,7 @@ const NavBarDekstop: FC = () => {
           onClick={() => setIsShort((prev) => !prev)}
         />
         <ExitWrapper>
-          <ExitButton svgSpriteId="log-out" title={isShort ? '' : 'Вийти'} variant="text" iconPlace="startIcon" onClick={() => signOut()} />
+          <ExitButton svgSpriteId="log-out" title={title} variant="text" iconPlace="startIcon" onClick={() => signOut()} />
         </ExitWrapper>
       </Wrapper>
       <Offset />
