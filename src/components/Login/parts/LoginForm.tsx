@@ -8,10 +8,10 @@ import {
   SetStateAction,
   useState,
 } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
 
 import { AuthData } from '../Login'
-import { ButtonBox, Description, ErrorBox, FormBox, ResetPasswordTitle } from '../styles'
+import { ButtonBox, Description, ErrorBox, FormBox, RecoveryPassTitle } from '../styles'
+import ModalWind from './ModalWind'
 import PassIcon from './PassIcon'
 
 interface LoginFormProps {
@@ -30,6 +30,14 @@ const LoginForm: FC<LoginFormProps> = ({
   setLoginError,
 }) => {
   const [showPass, setShowPass] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
+
+  const modalOpen = () => {
+    setOpenModal(true)
+  }
+  const closeModal = () => {
+    setOpenModal(false)
+  }
 
   const managePassInput: MouseEventHandler = e => {
     e.preventDefault()
@@ -83,9 +91,9 @@ const LoginForm: FC<LoginFormProps> = ({
             />
           </FormControl>
 
-          <ResetPasswordTitle component={RouterLink} to={'reset'}>
+          <RecoveryPassTitle component={'span'} onClick={modalOpen}>
             Забули пароль?
-          </ResetPasswordTitle>
+          </RecoveryPassTitle>
         </Stack>
 
         <ButtonBox>
@@ -102,6 +110,8 @@ const LoginForm: FC<LoginFormProps> = ({
           </Description>
         </ErrorBox>
       )}
+
+      <ModalWind open={openModal} closeModal={closeModal} />
     </FormBox>
   )
 }
