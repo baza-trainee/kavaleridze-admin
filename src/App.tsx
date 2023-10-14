@@ -5,8 +5,8 @@ import EditEvent from './components/EditEvent/EditEvent'
 import EventList from './components/EventList/EventList'
 import AuthLayout from './components/Login/AuthLayout'
 import Login from './components/Login/Login'
-import ResetPassword from './components/Login/parts/ResetPassword'
-import SuccessMessage from './components/Login/parts/SuccessMessage'
+// import ResetPassword from './components/Login/parts/ResetPassword'
+// import SuccessMessage from './components/Login/parts/SuccessMessage'
 import Settings from './components/Settings/Settings'
 import SharedLayout from './components/SharedLayout/SharedLayout'
 
@@ -45,14 +45,14 @@ const router = createBrowserRouter([
         index: true,
         element: <Login />,
       },
-      {
-        path: 'reset',
-        element: <ResetPassword />,
-      },
-      {
-        path: 'success-message',
-        element: <SuccessMessage />,
-      },
+      // {
+      //   path: 'reset',
+      //   element: <ResetPassword />,
+      // },
+      // {
+      //   path: 'success-message',
+      //   element: <SuccessMessage />,
+      // },
     ],
   },
 ])

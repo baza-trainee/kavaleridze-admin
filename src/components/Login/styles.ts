@@ -1,6 +1,12 @@
-import { Box, BoxProps, Typography, TypographyProps, styled } from '@mui/material'
-import { ForwardRefExoticComponent, RefAttributes } from 'react'
-import { LinkProps } from 'react-router-dom'
+import {
+  Box,
+  BoxProps,
+  Dialog,
+  DialogProps,
+  Typography,
+  TypographyProps,
+  styled,
+} from '@mui/material'
 
 // =========  Header  =========
 
@@ -67,9 +73,7 @@ export const FormBox = styled(Box)<BoxProps>(({ theme }) => ({
   },
 }))
 
-export const ResetPasswordTitle = styled(Typography)<
-  TypographyProps<ForwardRefExoticComponent<LinkProps & RefAttributes<HTMLAnchorElement>>>
->(({ theme }) => ({
+export const RecoveryPassTitle = styled(Typography)<TypographyProps>(({ theme }) => ({
   '&.MuiTypography-root': {
     fontSize: '1.125rem',
     color: 'inherit',
@@ -79,6 +83,12 @@ export const ResetPasswordTitle = styled(Typography)<
     fontWeight: 500,
     lineHeight: 'normal',
     textDecoration: 'underline',
+    cursor: 'pointer',
+    width: 'fit-content',
+
+    '&:hover': {
+      color: theme.palette.primary.dark,
+    },
   },
 }))
 
@@ -110,4 +120,50 @@ export const Description = styled(Typography)<TypographyProps>(({ theme }) => ({
       fontSize: '0.875rem',
     },
   },
+}))
+
+export const CustomDialog = styled(Dialog)<DialogProps>(({ theme }) => ({
+  '.MuiDialog-paper': {
+    padding: '16px',
+    borderRadius: '8px',
+    maxWidth: 'none',
+    margin: 0,
+
+    [theme.breakpoints.up('xs')]: {
+      width: '280px',
+      height: '168px',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '400px',
+      height: '184px',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '440px',
+      height: '184px',
+    },
+  },
+}))
+
+export const DialogText = styled(Typography)<TypographyProps>(({ theme }) => ({
+  '.MuiTypography-root': {
+    [theme.breakpoints.up('xs')]: {
+      fontSize: '0.875rem',
+      lineHeight: 1.43,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1.125rem',
+      lineHeight: 1.55,
+    },
+  },
+  [theme.breakpoints.up('xs')]: {
+    maxWidth: '196px',
+  },
+  [theme.breakpoints.up('md')]: {
+    maxWidth: '268px',
+  },
+  [theme.breakpoints.up('md')]: {
+    maxWidth: '284px',
+  },
+  margin: 'auto auto',
+  textAlign: 'center',
 }))
