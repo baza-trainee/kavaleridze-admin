@@ -1,7 +1,8 @@
-import { Box, BoxProps, Divider, Tab, Tabs } from '@mui/material'
+import { Box, BoxProps, Tab, Tabs } from '@mui/material'
 import { FC, ReactNode, SyntheticEvent, useState } from 'react'
 import PageTemplate from '../Common/PageTemplate'
 import SvgSpriteIcon from '../Common/SvgSprite'
+import { CustomDivider } from './styles'
 
 interface TabPanelProps extends BoxProps {
   children?: ReactNode
@@ -23,10 +24,10 @@ const Settings: FC = () => {
     <PageTemplate title="Налаштування">
       <Box>
         <Tabs value={value} onChange={handleChange}>
-          <Tab sx={{ padding: 0 }} label="Змінити пароль" />
-          <Tab sx={{ padding: 0 }} label="Змінити логін" />
+          <Tab disableRipple label="Змінити пароль" />
+          <Tab disableRipple label="Змінити логін" />
         </Tabs>
-        <Divider />
+        <CustomDivider />
         <TabPanel index={0} value={value}>
           <SvgSpriteIcon iconId="eye-close" />
         </TabPanel>
