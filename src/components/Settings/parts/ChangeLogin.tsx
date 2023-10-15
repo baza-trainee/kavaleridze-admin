@@ -10,6 +10,7 @@ interface ChangeLoginProps {
 }
 
 const ChangeLogin: FC<ChangeLoginProps> = ({ openModal }) => {
+  const [isDisabled, setIsDisabled] = useState(true)
   const [error, setError] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
   const [data, setData] = useState({
@@ -20,16 +21,20 @@ const ChangeLogin: FC<ChangeLoginProps> = ({ openModal }) => {
   const { oldLogin, newLogin, repeatLogin } = data
 
   const handleChange = (key: string) => (event: ChangeEvent<HTMLInputElement>) => {
-    setData({ ...data, [key]: event.target.value })
+    const newVal = event.target.value.trim().toLowerCase()
+    setData({ ...data, [key]: newVal })
+    if (key === 'repeatLogin') {
+      setError(!isLoginsSame(newVal, data.newLogin))
+      setErrorMsg('Логіни не співпадають. Спробуйте ще раз.')
+      if (newVal.length === data.newLogin.length)
+        setIsDisabled(!isLoginsSame(newVal, data.newLogin))
+      else setIsDisabled(true)
+    }
   }
 
-  interface isBtnDisabled {
-    oldLogin: string
-    newLogin: string
-    repeatLogin: string
-  }
-  const isBtnDisabled = (inputsData: isBtnDisabled): boolean => {
-    return Object.values(inputsData).every(el => el.length)
+  const isLoginsSame = (repeatLogin: string, newLogin: string) => {
+    const part = newLogin.slice(0, repeatLogin.length)
+    return part === repeatLogin
   }
 
   const onSubmit: FormEventHandler<HTMLFormElement> = async e => {
@@ -37,13 +42,13 @@ const ChangeLogin: FC<ChangeLoginProps> = ({ openModal }) => {
     const isValid = await validationSchema.isValid(data)
     if (!isValid) {
       setErrorMsg('Логін може бути тільки електронною адресою!')
+      setIsDisabled(true)
       return setError(!isValid)
+    } else {
+      openModal()
+      setError(false)
+      setData({ ...data, newLogin: '', oldLogin: '', repeatLogin: '' })
     }
-    if (data.newLogin !== data.repeatLogin) {
-      setErrorMsg('Логіни не співпадають. Спробуйте ще раз.')
-      return setError(true)
-    }
-    openModal()
     console.log(data)
   }
   return (
@@ -76,7 +81,7 @@ const ChangeLogin: FC<ChangeLoginProps> = ({ openModal }) => {
           error={error}
           onClick={() => setError(false)}
         />
-        <Button type="submit" variant="adminPrimaryBtn" disabled={!isBtnDisabled(data)}>
+        <Button type="submit" variant="adminPrimaryBtn" disabled={isDisabled}>
           Зберегти зміни
         </Button>
 

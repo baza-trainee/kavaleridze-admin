@@ -20,14 +20,18 @@ const ChangePassword: FC<ChangePasswordProps> = ({ openModal }) => {
   const handleChange = (key: string) => (event: ChangeEvent<HTMLInputElement>) => {
     const newVal = event.target.value.trim()
     setData({ ...data, [key]: newVal })
+
     if (key === 'repeatPass') {
       setError(!isPasswordsSame(newVal, data.newPass))
-      setIsDisabled(!isPasswordsSame(newVal, data.newPass))
+      if (newVal.length === data.newPass.length)
+        setIsDisabled(!isPasswordsSame(newVal, data.newPass))
+      else setIsDisabled(true)
     }
   }
 
   const isPasswordsSame = (repeatPas: string, newPass: string) => {
-    return repeatPas === newPass
+    const part = newPass.slice(0, repeatPas.length)
+    return part === repeatPas
   }
 
   const onSubmit: FormEventHandler<HTMLFormElement> = e => {
