@@ -8,6 +8,7 @@ interface ChangePasswordProps {
 }
 
 const ChangePassword: FC<ChangePasswordProps> = ({ openModal }) => {
+  const [isDisabled, setIsDisabled] = useState(true)
   const [error, setError] = useState(false)
   const [data, setData] = useState({
     oldPass: '',
@@ -16,22 +17,21 @@ const ChangePassword: FC<ChangePasswordProps> = ({ openModal }) => {
   })
   const { oldPass, newPass, repeatPass } = data
 
-  interface InputsData {
-    oldPass: string
-    newPass: string
-    repeatPass: string
-  }
-  const isBtnDisabled = (inputsData: InputsData): boolean => {
-    return Object.values(inputsData).every(el => el.length)
+  const handleChange = (key: string) => (event: ChangeEvent<HTMLInputElement>) => {
+    const newVal = event.target.value.trim()
+    setData({ ...data, [key]: newVal })
+    if (key === 'repeatPass') {
+      setError(!isPasswordsSame(newVal, data.newPass))
+      setIsDisabled(!isPasswordsSame(newVal, data.newPass))
+    }
   }
 
-  const handleChange = (key: string) => (event: ChangeEvent<HTMLInputElement>) => {
-    setData({ ...data, [key]: event.target.value })
+  const isPasswordsSame = (repeatPas: string, newPass: string) => {
+    return repeatPas === newPass
   }
 
   const onSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-    if (data.newPass !== data.repeatPass) return setError(!error)
     console.log(data)
     openModal()
   }
@@ -66,7 +66,7 @@ const ChangePassword: FC<ChangePasswordProps> = ({ openModal }) => {
           error={error}
           onClick={() => setError(false)}
         />
-        <Button type="submit" variant="adminPrimaryBtn" disabled={!isBtnDisabled(data)}>
+        <Button type="submit" variant="adminPrimaryBtn" disabled={isDisabled}>
           Зберегти зміни
         </Button>
         {error && <ErrorText>Паролі не співпадають. Спробуйте ще раз.</ErrorText>}
