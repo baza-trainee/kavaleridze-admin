@@ -28,11 +28,8 @@ const Login: FC = () => {
 
     const login = await signIn(authData.login, authData.password)
 
-    if (login) {
-      navigate('/', { replace: true })
-    } else {
-      setLoginError(true)
-    }
+    if (login) navigate('/', { replace: true })
+    else setLoginError(true)
   }
 
   return (
