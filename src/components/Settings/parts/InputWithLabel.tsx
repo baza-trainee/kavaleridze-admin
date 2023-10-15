@@ -68,6 +68,8 @@ const InputWithLabel: FC<InputWithLabelProps> = ({
             value={value}
             onChange={onChange}
             error={error}
+            onPaste={e => e.preventDefault()}
+            onCopy={e => e.preventDefault()}
           />
         </>
       )}
