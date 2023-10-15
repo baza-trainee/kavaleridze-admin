@@ -15,7 +15,28 @@ export const CustomDivider = styled(Divider)(({ theme }) => ({
   borderColor: theme.palette.gray.light,
 }))
 
-// ==== ChangePassword ====
+export const SettingsContainer = styled(Box)<BoxProps>(({ theme }) => ({
+  [theme.breakpoints.up('xs')]: {
+    padding: '24px 16px',
+  },
+  [theme.breakpoints.up('md')]: {
+    padding: '56px 16px 24px ',
+  },
+  [theme.breakpoints.up('lg')]: {
+    padding: '68px 16px 24px ',
+  },
+}))
+
+export const TabsContainer = styled(Box)<BoxProps>(({ theme }) => ({
+  [theme.breakpoints.up('xs')]: {
+    paddingTop: '24px',
+    paddingLeft: '16px',
+  },
+  [theme.breakpoints.up('md')]: {
+    paddingTop: '32px',
+    paddingLeft: '24  px',
+  },
+}))
 
 export const ContentBox = styled(Box)<BoxProps>(({ theme }) => ({
   position: 'relative',
@@ -80,7 +101,7 @@ export const CustomDialog = styled(Dialog)<DialogProps>(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
       width: '440px',
       height: '156px',
-      left: '10%',
+      marginLeft: '164px',
     },
     [theme.breakpoints.up('lg')]: {
       width: '500px',

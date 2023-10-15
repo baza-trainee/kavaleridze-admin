@@ -1,13 +1,12 @@
-import { Tab, Tabs } from '@mui/material'
+import { Divider, Stack, Tab, Tabs, Typography } from '@mui/material'
 import { FC, SyntheticEvent, useState } from 'react'
 
-import PageTemplate from '../Common/PageTemplate'
 import ChangeLogin from './parts/ChangeLogin'
 import ChangePassword from './parts/ChangePassword'
 import ModalWind from './parts/ModalWind'
 import TabPanel from './parts/TabPanel'
 
-import { ContentBox, CustomDivider } from './styles'
+import { ContentBox, CustomDivider, SettingsContainer, TabsContainer } from './styles'
 
 const Settings: FC = () => {
   const [value, setValue] = useState(0)
@@ -22,12 +21,24 @@ const Settings: FC = () => {
   }
 
   return (
-    <PageTemplate title="Налаштування">
-      <Tabs value={value} onChange={handleChange}>
-        <Tab disableRipple label="Змінити пароль" />
-        <Tab disableRipple label="Змінити логін" />
-      </Tabs>
+    <Stack sx={{ width: '100%' }}>
+      <SettingsContainer>
+        <Typography variant="h3" component="h1">
+          Налаштування
+        </Typography>
+      </SettingsContainer>
+
+      <Divider flexItem />
+
+      <TabsContainer>
+        <Tabs value={value} onChange={handleChange}>
+          <Tab disableRipple label="Змінити пароль" />
+          <Tab disableRipple label="Змінити логін" />
+        </Tabs>
+      </TabsContainer>
+
       <CustomDivider />
+
       <ContentBox>
         <TabPanel index={0} value={value}>
           <ChangePassword openModal={openModal} />
@@ -35,9 +46,10 @@ const Settings: FC = () => {
         <TabPanel index={1} value={value}>
           <ChangeLogin openModal={openModal} />
         </TabPanel>
+
         <ModalWind {...{ closeModal, open }} />
       </ContentBox>
-    </PageTemplate>
+    </Stack>
   )
 }
 
