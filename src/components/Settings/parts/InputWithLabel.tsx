@@ -1,6 +1,6 @@
 import PassIcon from '@/components/Login/parts/PassIcon'
 import { Box, InputAdornment, TextField, Typography } from '@mui/material'
-import { ChangeEvent, FC, MouseEventHandler, useState } from 'react'
+import { ChangeEventHandler, FC, MouseEventHandler, useState } from 'react'
 
 interface InputWithLabelProps {
   label: string
@@ -8,8 +8,8 @@ interface InputWithLabelProps {
   placeholder?: string
   value: string
   error?: boolean
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void
-  onClick: () => void
+  onChange: ChangeEventHandler<HTMLInputElement> | undefined
+  onClick: MouseEventHandler<HTMLDivElement> | undefined
 }
 
 const InputWithLabel: FC<InputWithLabelProps> = ({
