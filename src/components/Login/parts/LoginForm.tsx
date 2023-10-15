@@ -45,7 +45,7 @@ const LoginForm: FC<LoginFormProps> = ({
   }
 
   const handleChange = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
-    setAuthData({ ...authData, [name]: e.target.value })
+    setAuthData({ ...authData, [name]: e.target.value.trim() })
   }
 
   return (

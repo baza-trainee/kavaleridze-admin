@@ -7,8 +7,8 @@ import LoginForm from './parts/LoginForm'
 import { ContentBox } from './styles'
 
 export interface AuthData {
-  login?: string
-  password?: string
+  login: string
+  password: string
 }
 
 const Login: FC = () => {
@@ -31,7 +31,7 @@ const Login: FC = () => {
     if (login) {
       navigate('/', { replace: true })
     } else {
-      // ToDo: add message for bad credential
+      setLoginError(true)
     }
   }
 
