@@ -1,14 +1,11 @@
-import { FC, PropsWithChildren } from 'react';
-import { Container, Divider, Typography, Stack } from '@mui/material';
+import { FC, PropsWithChildren } from 'react'
+import { Container, Divider, Typography, Stack } from '@mui/material'
 
 interface PageTemplateProps {
-  title: string;
+  title: string
 }
 
-const PageTemplate: FC<PropsWithChildren<PageTemplateProps>> = ({
-  title,
-  children,
-}) => {
+const PageTemplate: FC<PropsWithChildren<PageTemplateProps>> = ({ title, children }) => {
   return (
     <Stack width="100%">
       <Container
@@ -31,7 +28,7 @@ const PageTemplate: FC<PropsWithChildren<PageTemplateProps>> = ({
         {children}
       </Container>
     </Stack>
-  );
-};
+  )
+}
 
-export default PageTemplate;
+export default PageTemplate

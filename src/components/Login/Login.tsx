@@ -7,8 +7,8 @@ import LoginForm from './parts/LoginForm'
 import { ContentBox } from './styles'
 
 export interface AuthData {
-  login?: string
-  password?: string
+  login: string
+  password: string
 }
 
 const Login: FC = () => {
@@ -28,11 +28,8 @@ const Login: FC = () => {
 
     const login = await signIn(authData.login, authData.password)
 
-    if (login) {
-      navigate('/', { replace: true })
-    } else {
-      // ToDo: add message for bad credential
-    }
+    if (login) navigate('/', { replace: true })
+    else setLoginError(true)
   }
 
   return (
