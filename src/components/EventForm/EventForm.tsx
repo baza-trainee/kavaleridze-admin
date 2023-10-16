@@ -40,6 +40,11 @@ const EventForm: FC<EventFormProps> = ({ defaultValues, onPublish, type }) => {
     }
   };
 
+  const onSubmit = (data: IEventValues) => {
+    onPublish(data);
+    reset();
+  };
+
   const requiredFieldsError = useMemo(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
@@ -56,7 +61,7 @@ const EventForm: FC<EventFormProps> = ({ defaultValues, onPublish, type }) => {
   }, [begin, end]);
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onPublish)}>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
       <Grid container columnSpacing="30px" rowSpacing={4}>
         {requiredFieldsError && (
           <Grid item xs={12}>
