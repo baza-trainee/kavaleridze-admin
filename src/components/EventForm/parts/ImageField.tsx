@@ -30,15 +30,16 @@ const ImageField: FC<ImageFieldProps> = ({
   const imageRef = useRef(null);
 
   useEffect(() => {
-    if (value) {
-      //ToDo = convert image from server to local URL and saved it to image and banner
-
-      // setImage(imageState);
-      // setBanner(imageState);
-      console.log('image comes wit defaults value');
+    if (value === '' && banner && banner.id) {
+      setImage(null);
+      setBanner(null);
+    }
+    if (value !== '' && !banner) {
+      //ToDo convert image into base64 and save it as image and banner
+      console.log('edit page need to convert image');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [value]);
 
   useEffect(() => {
     if (banner) onChange(banner.id);
@@ -97,7 +98,7 @@ const ImageField: FC<ImageFieldProps> = ({
               onDragOver={onDragOver}
               onDragLeave={onDragLeave}
               draggable="true"
-              error={error}
+              isError={error}
             >
               {banner ? (
                 <Box position="relative">

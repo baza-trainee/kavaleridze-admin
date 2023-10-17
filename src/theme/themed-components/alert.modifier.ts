@@ -4,11 +4,13 @@ export const MuiAlert: Components<Theme>['MuiAlert'] = {
   defaultProps: {},
   styleOverrides: {
     root: ({ theme }) => ({
-      backgroundColor: theme.palette.common.white,
+      backgroundColor: theme.palette.error.light,
       borderRadius: '8px',
       padding: '15px 16px',
       fontSize: 14,
       lineHeight: 1.429,
+      cursor: 'default',
+      color: theme.palette.common.black,
 
       [`${theme.breakpoints.up('md')}`]: {
         fontSize: 16,
