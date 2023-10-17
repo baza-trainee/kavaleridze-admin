@@ -14,11 +14,10 @@ const ChangeLogin: FC<ChangeLoginProps> = ({ openModal }) => {
   const [error, setError] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
   const [data, setData] = useState({
-    oldLogin: '',
     newLogin: '',
     repeatLogin: '',
   })
-  const { oldLogin, newLogin, repeatLogin } = data
+  const { newLogin, repeatLogin } = data
 
   const handleChange = (key: string) => (event: ChangeEvent<HTMLInputElement>) => {
     const newVal = event.target.value.trim().toLowerCase()
@@ -47,22 +46,13 @@ const ChangeLogin: FC<ChangeLoginProps> = ({ openModal }) => {
     } else {
       openModal()
       setError(false)
-      setData({ ...data, newLogin: '', oldLogin: '', repeatLogin: '' })
+      setData({ ...data, newLogin: '', repeatLogin: '' })
     }
     console.log(data)
   }
   return (
     <Box component={'form'} onSubmit={onSubmit} position={'relative'}>
       <InputsBox>
-        <InputWithLabel
-          label="Старий логін"
-          type="text"
-          placeholder="Введіть Ваш логін"
-          value={oldLogin}
-          onChange={handleChange('oldLogin')}
-          error={error}
-          onClick={() => setError(false)}
-        />
         <InputWithLabel
           label="Новий логін"
           type="text"

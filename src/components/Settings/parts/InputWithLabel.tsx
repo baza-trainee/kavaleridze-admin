@@ -1,5 +1,5 @@
 import PassIcon from '@/components/Login/parts/PassIcon'
-import { Box, InputAdornment, TextField, Typography } from '@mui/material'
+import { Box, InputAdornment, TextField, Typography, useTheme } from '@mui/material'
 import { ChangeEventHandler, FC, MouseEventHandler, useState } from 'react'
 
 interface InputWithLabelProps {
@@ -22,7 +22,18 @@ const InputWithLabel: FC<InputWithLabelProps> = ({
   onChange,
 }) => {
   const [showPass, setShowPass] = useState(false)
+
   const isPassType = type === 'password'
+
+  const { palette } = useTheme()
+  const styles = {
+    '.MuiInputBase-root': { height: '52px' },
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: error ? palette.error.main : '',
+      },
+    },
+  }
 
   const managePassInput: MouseEventHandler = e => {
     e.preventDefault()
@@ -41,7 +52,7 @@ const InputWithLabel: FC<InputWithLabelProps> = ({
             autoComplete="off"
             placeholder={placeholder}
             type={showPass ? 'text' : 'password'}
-            sx={{ '.MuiInputBase-root': { height: '52px' } }}
+            sx={{ ...styles }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -64,7 +75,7 @@ const InputWithLabel: FC<InputWithLabelProps> = ({
             fullWidth
             autoComplete="off"
             placeholder={placeholder}
-            sx={{ '.MuiInputBase-root': { height: '52px' } }}
+            sx={{ ...styles }}
             value={value}
             onChange={onChange}
             error={error}

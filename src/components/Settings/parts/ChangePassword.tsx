@@ -49,7 +49,6 @@ const ChangePassword: FC<ChangePasswordProps> = ({ openModal }) => {
           placeholder="Введіть Ваш пароль"
           value={oldPass}
           onChange={handleChange('oldPass')}
-          error={error}
           onClick={() => setError(false)}
         />
         <InputWithLabel
