@@ -10,6 +10,7 @@ export const instance = axios.create({
 
 interface LoginResponse {
   roles: string[];
+  token: string;
 }
 
 export const login = (username: string, password: string) => {

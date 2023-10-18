@@ -6,11 +6,10 @@ import {
   useState,
 } from 'react';
 import { instance, login, logout } from '@/api';
-import { IAdmin } from '@/types/context';
 
 //ToDo: add singIn and signOut fn type
 interface AuthContextType {
-  user: IAdmin | null;
+  isAuth: boolean;
   signIn: (username: string, password: string) => Promise<boolean>;
   signOut: () => void;
 }
@@ -20,20 +19,19 @@ export const AuthContext = createContext<AuthContextType>(null!);
 const localStorageKey = 'auth';
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [user, setUser] = useState<IAdmin | null>(() => {
+  const [token, setToken] = useState<string | null>(() => {
+    const token = localStorage.getItem(localStorageKey);
+    return token ? token : null;
+  });
+  const [isAuth, setIsAuth] = useState(() => {
     const admin = localStorage.getItem(localStorageKey);
-    return admin ? JSON.parse(admin) : null;
+    return !!admin;
   });
 
-
   useEffect(() => {
-    if (user) {
+    if (token) {
       //ToDo: change to token
-      instance.defaults.auth = {
-        username: user.username,
-        password: user.password,
-      };
-      instance.defaults.withCredentials = true;
+      instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
   });
 
@@ -42,17 +40,19 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
     try {
       const {
-        data: { roles },
+        data: { token },
       } = await login(username, password);
-      const user = { username, password, roles };
-      setUser(user);
-      //ToDo: change to token
-      instance.defaults.auth = { username, password };
-      instance.defaults.withCredentials = true;
-      localStorage.setItem(localStorageKey, JSON.stringify(user));
 
+      setToken(token);
+      localStorage.setItem(localStorageKey, token);
+      instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      setIsAuth(true);
       return true;
     } catch (error) {
+      localStorage.removeItem(localStorageKey);
+      setToken(null);
+      setIsAuth(false);
+      instance.defaults.headers.common['Authorization'] = undefined;
       return false;
     }
   };
@@ -61,12 +61,12 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     //ToDo: add request for sign out
     await logout();
     localStorage.removeItem(localStorageKey);
-    setUser(null);
-    instance.defaults.auth = undefined;
-    instance.defaults.withCredentials = false;
+    setToken(null);
+    setIsAuth(false);
+    instance.defaults.headers.common['Authorization'] = undefined;
   };
 
-  const value = { user, signIn, signOut };
+  const value = { isAuth, signIn, signOut };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
