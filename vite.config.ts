@@ -3,20 +3,21 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    host: true,
-    port: 5174,
-    watch: {
-      usePolling: true,
+export default defineConfig(({ command }) => {
+  const config = {
+    plugins: [react()],
+    base: '/',
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, 'src'),
+        '#root': resolve(__dirname),
+      },
     },
-  },
-  
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src'),
-      '#root': resolve(__dirname),
-    },
-  },
+  };
+
+  if (command !== 'serve') {
+    config.base = '/kavaleridze-admin/';
+  }
+
+  return config;
 });
