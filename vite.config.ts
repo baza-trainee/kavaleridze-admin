@@ -7,6 +7,10 @@ export default defineConfig(({ command }) => {
   const config = {
     plugins: [react()],
     base: '/',
+    server: {
+      port: 5174,
+      host: true,
+    },
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src'),

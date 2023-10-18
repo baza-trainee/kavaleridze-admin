@@ -6,15 +6,15 @@ import NavBarDekstop from '../NavBar/NavbarDekstop/NavBarDekstop';
 
 const SharedLayout = () => {
   //ToDo: when Login form will be done, uncomment code below (8-14 line)
-  const { user } = useAuth();
+  const { isAuth } = useAuth();
   const location = useLocation();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
-  if (!user) {
+  if (!isAuth) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-const direction =isDesktop?'row':'column';
+  const direction = isDesktop ? 'row' : 'column';
   return (
     <Stack direction={direction}>
       {isDesktop ? <NavBarDekstop /> : <NavBarMobile />}
