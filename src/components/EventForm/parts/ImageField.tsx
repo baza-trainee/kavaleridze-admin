@@ -9,6 +9,7 @@ import EditImage from './EditImage';
 import { IImageState } from '@/types/events';
 import { saveNewImage } from '@/helpers/imageUrl';
 import { useController } from 'react-hook-form';
+import { getImage } from '@/api';
 
 interface ImageFieldProps extends InputFormProps {
   error: boolean;
@@ -35,6 +36,16 @@ const ImageField: FC<ImageFieldProps> = ({
       setBanner(null);
     }
     if (value !== '' && !banner) {
+      const getImageFile = async () => {
+        const { data } = await getImage(value);
+        const image: IImageState = {
+          id: value,
+          url: URL.createObjectURL(data),
+        };
+        setImage(image);
+        setBanner(image);
+      };
+      getImageFile();
       //ToDo convert image into base64 and save it as image and banner
       console.log('edit page need to convert image');
     }

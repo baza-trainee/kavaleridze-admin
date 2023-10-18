@@ -140,3 +140,68 @@ export const CustomSelect = styled(Select)(({ theme }) => ({
     fontSize: 18,
   },
 }));
+
+interface TextAreaContainerProps {
+  errorValue: boolean;
+}
+
+export const TextAreaContainer = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'errorValue',
+})<TextAreaContainerProps>(({ theme, errorValue }) => ({
+  borderRadius: '8px',
+  border: '1px solid',
+  borderColor: errorValue
+    ? theme.palette.error.main
+    : theme.palette.common.black,
+  overflow: 'hidden',
+
+  '&:hover, &:focus-within': {
+    borderColor: theme.palette.primary.main,
+  },
+}));
+
+export const CustomTextArea = styled('textarea')(({ theme, name }) => ({
+  width: '100%',
+  minHeight: '100%',
+  height: name === 'summary' ? 112 : 304,
+  padding: '12px 16px',
+  borderRadius: '8px',
+  border: '1px solid',
+  borderColor: 'transparent',
+  backgroundColor: theme.palette.common.white,
+  resize: 'none',
+  outline: 'none',
+
+  fontFamily: 'Raleway',
+  fontSize: 14,
+  fontWeight: 400,
+  lineHeight: 1.429,
+  fontVariantNumeric: 'lining-nums proportional-nums',
+
+  scrollbarColor: `${theme.palette.gray.main} ${theme.palette.gray.light}`,
+  scrollbarWidth: 'thin',
+
+  '&::-webkit-scrollbar': {
+    width: 10,
+    cursor: 'pointer',
+  },
+
+  '&::-webkit-scrollbar-track': {
+    backgroundColor: theme.palette.gray.light,
+    marginTop: 2,
+    marginBottom: 2,
+    borderRadius: '8px',
+  },
+
+  '&::-webkit-scrollbar-thumb': {
+    borderRadius: '8px',
+    backgroundClip: 'content-box',
+    backgroundColor: theme.palette.gray.main,
+  },
+
+  [`${theme.breakpoints.up('md')}`]: {
+    fontSize: 16,
+    lineHeight: 1.5,
+    height: name === 'summary' ? 100 : 292,
+  },
+}));

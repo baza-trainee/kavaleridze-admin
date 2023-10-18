@@ -1,12 +1,14 @@
 import { FC, useMemo } from 'react';
 import { Box, Grid, Typography, Button, Stack, Alert } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { DateTime } from 'luxon';
 import TypeSelect from './parts/TypeSelect';
 import EventField from './parts/EventField';
 import CalendarField from './parts/CalendarField';
 import ImageField from './parts/ImageField';
+import EventTextArea from './parts/EventTextArea';
 import { IEventValues } from '@/types/events';
 import { validationSchemaEventForm } from './validation';
 
@@ -28,6 +30,7 @@ const EventForm: FC<EventFormProps> = ({ defaultValues, onPublish, type }) => {
     mode: 'onSubmit',
     resolver: yupResolver(validationSchemaEventForm),
   });
+  const navigate = useNavigate();
 
   const begin = watch('begin');
   const end = watch('end');
@@ -36,7 +39,8 @@ const EventForm: FC<EventFormProps> = ({ defaultValues, onPublish, type }) => {
     if (type === 'add') {
       reset();
     } else {
-      //logic in edit form
+      reset();
+      navigate('/events', { replace: true });
     }
   };
 
@@ -121,24 +125,22 @@ const EventForm: FC<EventFormProps> = ({ defaultValues, onPublish, type }) => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <EventField
+          <EventTextArea
             control={control}
             label="Короткий опис події"
             required={true}
             name="summary"
             placeholder="Введіть Ваш текст"
-            row={3}
             maxLength={150}
           />
         </Grid>
         <Grid item xs={12}>
-          <EventField
+          <EventTextArea
             control={control}
             label="Розгорнутий опис події"
             required={true}
             name="description"
             placeholder="Введіть Ваш текст"
-            row={11}
             maxLength={2000}
           />
         </Grid>

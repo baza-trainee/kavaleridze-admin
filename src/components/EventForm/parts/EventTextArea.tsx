@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
-import { InputLabel, TextField, Typography } from '@mui/material';
+import { InputLabel, Typography } from '@mui/material';
+import { CustomTextArea, TextAreaContainer } from './styles';
 import { InputFormProps } from '@/types/events';
 
-const EventField: FC<InputFormProps> = ({
+const EventTextArea: FC<InputFormProps> = ({
   control,
   label,
   name,
@@ -21,15 +22,15 @@ const EventField: FC<InputFormProps> = ({
             {label}
           </InputLabel>
 
-          <TextField
-            {...field}
-            id={field.name}
-            InputLabelProps={{ shrink: true }}
-            inputProps={{ maxLength: maxLength || 'auto' }}
-            fullWidth
-            error={!!error}
-            placeholder={placeholder}
-          />
+          <TextAreaContainer errorValue={!!error}>
+            <CustomTextArea
+              {...field}
+              id={field.name}
+              maxLength={maxLength}
+              placeholder={placeholder}
+            />
+          </TextAreaContainer>
+
           {maxLength && (
             <Typography textAlign="end" variant="body2" mt={1}>
               {field.value.length}/{maxLength}
@@ -41,4 +42,4 @@ const EventField: FC<InputFormProps> = ({
   );
 };
 
-export default EventField;
+export default EventTextArea;
