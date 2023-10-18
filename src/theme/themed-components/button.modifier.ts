@@ -12,10 +12,11 @@ declare module '@mui/material/Button' {
 }
 export const MuiButton: Components<Theme>['MuiButton'] = {
   defaultProps: {
-    variant: 'primary',
     disableRipple: true,
     disableTouchRipple: true,
     disableFocusRipple: true,
+    disableElevation: true,
+    variant: 'primary',
   },
   styleOverrides: {
     root: ({ theme }) => ({

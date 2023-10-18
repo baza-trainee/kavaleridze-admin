@@ -1,13 +1,17 @@
-import { Control } from "react-hook-form";
+import { Control } from 'react-hook-form';
 
 export interface IEventValues {
   title: string;
   type: string;
-  begin?: string;
-  end?: string;
+  begin?: string | null;
+  end?: string | null;
   summary: string;
   description: string;
   banner: string;
+}
+
+export interface IEvent extends IEventValues {
+  id: string;
 }
 
 interface IContactInfo {
@@ -26,7 +30,6 @@ export interface InputFormProps {
   required: boolean;
   maxLength?: number;
   placeholder: string;
-  row?: number | undefined;
 }
 
 export interface IImageState {

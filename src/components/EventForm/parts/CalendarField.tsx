@@ -36,7 +36,10 @@ const CalendarField: FC<CalendarFieldProps> = ({
             </Typography>
           </InputLabel>
           <DesktopDatePicker
-            sx={{ width: '100%' }}
+            sx={{
+              width: '100%',
+              fontVariantNumeric: 'lining-nums proportional-nums',
+            }}
             format="dd/MM/yyyy"
             {...field}
             value={field.value ? DateTime.fromISO(field.value) : null}

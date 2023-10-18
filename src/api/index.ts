@@ -1,4 +1,4 @@
-import { IEventValues, IContactInfo } from '@/types/events';
+import { IEventValues, IContactInfo, IEvent } from '@/types/events';
 import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_SERVER_URL;
@@ -48,6 +48,40 @@ export const addNewImage = (file: File | Blob) => {
   });
 };
 
+export const getImage = (imageId: string) => {
+  return instance.get(`/images?filename=${imageId}&type=ORIGINAL`, {
+    responseType: 'blob',
+  });
+};
+
 export const addEvent = (data: IEventValues) => {
   return instance.post('/admin/events', data);
+};
+
+interface GetEventsResponse {
+  totalPages: number;
+  totalElements: number;
+  first: boolean;
+  content: IEvent[];
+}
+
+export const getEvents = (page = 0, size = 5) => {
+  return instance.get<GetEventsResponse>(`/events?size=${size}&page=${page}`);
+};
+
+export const getEventById = async (id: string) => {
+  try {
+    const { data } = await instance.get<IEvent>(`/events/${id}`);
+    return data;
+  } catch (e) {
+    return null;
+  }
+};
+
+export const editEvent = async (data: IEventValues, id: string) => {
+  return instance.put(`/admin/events/${id}`, data);
+};
+
+export const deleteEvent = async (id: string) => {
+  return instance.delete(`/admin/events/${id}`);
 };
